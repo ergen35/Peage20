@@ -1,12 +1,12 @@
-import { DataSource } from 'typeorm'
-import 'reflect-metadata'
+import 'reflect-metadata';
+import { DataSource } from 'typeorm';
 import {
     PassCard,
     PassPoint,
     TransactionOperation,
     UsageRecord,
     User
-} from '../entities/entities';
+} from './entities';
 
 
 export const AppDataSource = new DataSource({
@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'peage20db',
-    synchronize: true, //TODO: remove synchronize in production
+    synchronize: true,              //TODO: remove synchronize in production
     entities: [PassCard, PassPoint, TransactionOperation, UsageRecord, User],
     migrations: [],
     logging: true,

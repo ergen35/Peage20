@@ -1,11 +1,16 @@
+import { AppDataSource } from "$lib/data-sources";
 import { createConnection as createMySqlConnection } from "mysql";
 import type { DataSource } from "typeorm";
-import { AppDataSource } from "./data/data-sources";
 
 
+/**
+ * Create an sql database if not exist, with default "create database" query
+ * @param dataSource 
+ * @returns Promise<bool>
+ */
 function createDatabaseIfNotExists(dataSource: DataSource) {
 
-    return new Promise<boolean>((resolve, reject) => {
+    return new Promise<boolean>((resolve) => {
         const connection = createMySqlConnection({
             host: 'localhost',
             user: 'root',
@@ -18,13 +23,13 @@ function createDatabaseIfNotExists(dataSource: DataSource) {
             }
         })
 
-        connection.query("CREATE DATABASE IF NOT EXISTS " + dataSource.options.database + ";", (err2, __) => {
+        connection.query("CREATE DATABASE IF NOT EXISTS " + dataSource.options.database + ";", (err2) => {
             if (err2) throw err2;
             else console.log("Database created");
         })
 
         connection.end((err) => {
-            if(err){
+            if (err) {
                 console.error("Unable to close initial conection")
             }
         })
@@ -34,15 +39,14 @@ function createDatabaseIfNotExists(dataSource: DataSource) {
 }
 
 
-
 //create database if not exists
 await createDatabaseIfNotExists(AppDataSource);
-//initializr datasource for the st time
-if(!AppDataSource.isInitialized)
-{
+
+//initialize datasource for the st time
+if (!AppDataSource.isInitialized) {
     await AppDataSource.initialize();
 }
 
 if (AppDataSource.isInitialized) {
-    AppDataSource.logger.log('info', "App Data source is initialized and ready");
+    console.log("App Data source is initialized and ready");
 }

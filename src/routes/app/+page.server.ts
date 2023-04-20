@@ -1,6 +1,6 @@
+import { PassPoint } from '$lib/entities';
+import { AppDataSource } from '$lib/data-sources';
 import type { PageServerLoad } from './$types';
-import { AppDataSource } from '../../data/data-sources';
-import { PassPoint } from '../../entities/entities';
 
 export const load = (async () => {
 
