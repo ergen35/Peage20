@@ -1,5 +1,12 @@
 import { DataSource } from 'typeorm'
 import 'reflect-metadata'
+import {
+    PassCard,
+    PassPoint,
+    TransactionOperation,
+    UsageRecord,
+    User
+} from '../entities/entities';
 
 
 export const AppDataSource = new DataSource({
@@ -9,7 +16,8 @@ export const AppDataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'peage20db',
-    entities: [],
+    entities: [ PassCard, PassPoint, TransactionOperation, UsageRecord, User],
+    migrations: [],
     logging: true,
     subscribers: []
 })

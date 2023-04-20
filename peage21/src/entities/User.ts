@@ -3,27 +3,27 @@ import { PassCard } from "./PassCard";
 import { TransactionOperation } from "./TransactionOperation";
 
 @Entity()
-export class User{
+export class User {
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column('varchar')
     fisrtName!: string;
 
-    @Column()
+    @Column('varchar')
     lastName!: string;
 
     @Column('text')
     passwordHash!: string
 
-    @Column('float64')
+    @Column('double')
     accountBalance!: number;
 
     @Column('date')
     registrationDate!: Date;
 
-    @Column({ length: 1024 })
+    @Column('text')
     address!: string;
 
     @Column('bool')
@@ -32,7 +32,7 @@ export class User{
     @Column('date')
     lastAccessDate!: Date;
 
-    @OneToOne(() => PassCard,  {cascade: ['remove', "soft-remove"]})
+    @OneToOne(() => PassCard, { cascade: ['remove', "soft-remove"] })
     userCard!: PassCard
 
     @OneToOne(() => PassCard, pc => pc.cardOwner)

@@ -9,14 +9,14 @@ export class TransactionOperation{
     @PrimaryGeneratedColumn()
     id!: number
     
-    @Column()
+    @Column('varchar')
     transactionID!: string
 
     @Column('text')
     hash!: string
 
     @Column('date')
-    initiatedOn!: Date
+    initiatedOn!: Date 
 
     @Column('double')
     amount!: number
@@ -24,6 +24,6 @@ export class TransactionOperation{
     @ManyToOne(() => User, u => u.userTransactions)
     transactionActor!: User
 
-    @Column('enum')
-    status: TransactionStatus = TransactionStatus.pending
+    @Column('varchar')
+    status: string = TransactionStatus.pending.toString() 
 }

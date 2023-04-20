@@ -1,18 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from "typeorm";
-import { User } from "./User";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { UsageRecord } from "./UsageRecord";
+import { User } from "./User";
 
 
 @Entity()
-export class PassCard{
+export class PassCard {
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column('varchar')
     name!: string;
 
-    @Column()
+    @Column('varchar')
     cardID!: string;
 
     @Column('date')
