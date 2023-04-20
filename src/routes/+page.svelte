@@ -9,7 +9,7 @@
         TableHeadCell,
         TableSearch,}
     from "flowbite-svelte";
-    import { isAuthModalOn } from "../stores";
+    import { isAuthModalOn } from "../app-store";
     import type { PageData } from "./$types";
 
     let stats = {

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { LoginForm, RegistrationForm } from "$lib/components/components";
+    import { LoginForm, RegistrationForm } from "$lib/components";
     import {
         Button,
         Footer,
@@ -16,7 +16,7 @@
         Tabs,} 
     from "flowbite-svelte";
     import "../app.css";
-    import { isAuthModalOn } from "../stores";
+    import { isAuthModalOn } from "../app-store";
     import type { LayoutData } from "./$types";
 
     export let data: LayoutData;
