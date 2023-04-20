@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'peage20db',
-    synchronize: true,
+    synchronize: true, //TODO: remove synchronize in production
     entities: [PassCard, PassPoint, TransactionOperation, UsageRecord, User],
     migrations: [],
     logging: true,
