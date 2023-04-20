@@ -13,6 +13,6 @@ export const load = (async () => {
     pp = await ppRepos.save(pp);
 
     return {
-        thisPP: pp
+        thisPP: structuredClone(pp)
     };
 }) satisfies PageServerLoad;

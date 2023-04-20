@@ -16,7 +16,8 @@ export const AppDataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'peage20db',
-    entities: [ PassCard, PassPoint, TransactionOperation, UsageRecord, User],
+    synchronize: true,
+    entities: [PassCard, PassPoint, TransactionOperation, UsageRecord, User],
     migrations: [],
     logging: true,
     subscribers: []
