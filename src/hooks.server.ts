@@ -5,8 +5,6 @@ import type { DataSource } from "typeorm";
 
 /**
  * Create an sql database if not exist, with default "create database" query
- * @param dataSource 
- * @returns Promise<bool>
  */
 function createDatabaseIfNotExists(dataSource: DataSource) {
 
@@ -25,7 +23,6 @@ function createDatabaseIfNotExists(dataSource: DataSource) {
 
         connection.query("CREATE DATABASE IF NOT EXISTS " + dataSource.options.database + ";", (err2) => {
             if (err2) throw err2;
-            else console.log("Database created");
         })
 
         connection.end((err) => {
@@ -34,13 +31,25 @@ function createDatabaseIfNotExists(dataSource: DataSource) {
             }
         })
 
+        console.log("Database created");
         resolve(true)
-    })
+    }) 
 }
 
 
 //create database if not exists
 await createDatabaseIfNotExists(AppDataSource);
+
+//introduce a 5000ms wait before working on the newly created database
+console.log("Starting 5000ms wait.")
+const execDelay = new Promise((resolve) => {
+    setTimeout(() =>{
+        console.log("5000ms wait ended.")
+        resolve(0)
+    }, 5000)
+})
+
+await execDelay;
 
 //initialize datasource for the st time
 if (!AppDataSource.isInitialized) {

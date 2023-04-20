@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { RoundedStatCard } from "$lib/components/components";
+    import { RoundedStatCard } from "$lib/components";
     import {
         Button,
         TableBody,
@@ -69,7 +69,7 @@
                     <TableHeadCell>Géo-Adresse</TableHeadCell>
                     <TableHeadCell>Prix Actuel</TableHeadCell>
                 </TableHead>
-                <TableBody class="divide-y">
+                <TableBody tableBodyClass="divide-y">
                     {#each filteredItems as item}
                         <TableBodyRow>
                             <TableBodyCell>{item.id}</TableBodyCell>
