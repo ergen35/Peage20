@@ -11,5 +11,4 @@ export default {
     require('flowbite/plugin')
   ],
   darkMode: 'class',
-  prefix: "tw-"
 };
