@@ -21,7 +21,7 @@ export class PassCard{
     @Column('bool')
     isActivated!: boolean;
 
-    @OneToOne(() => User)
+    @OneToOne(() => User, u => u.passCard)
     @JoinColumn()
     cardOwner!: User;
 

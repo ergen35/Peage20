@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PassCard } from "./PassCard";
 import { TransactionOperation } from "./TransactionOperation";
 
@@ -35,7 +35,7 @@ export class User{
     @OneToOne(() => PassCard,  {cascade: ['remove', "soft-remove"]})
     userCard!: PassCard
 
-    @OneToOne(() => PassCard)
+    @OneToOne(() => PassCard, pc => pc.cardOwner)
     passCard!: PassCard;
 
     @OneToMany(() => TransactionOperation, t => t.transactionActor)

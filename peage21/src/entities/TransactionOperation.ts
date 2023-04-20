@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
+import { TransactionStatus } from "./TransactionStatus";
 
 
 @Entity()
@@ -22,4 +23,7 @@ export class TransactionOperation{
 
     @ManyToOne(() => User, u => u.userTransactions)
     transactionActor!: User
+
+    @Column('enum')
+    status: TransactionStatus = TransactionStatus.pending
 }
