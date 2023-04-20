@@ -1,33 +1,43 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { PassCard } from "./PassCard";
+import { TransactionOperation } from "./TransactionOperation";
 
 @Entity()
 export class User{
 
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number;
 
     @Column()
-    fisrtName: string
+    fisrtName!: string;
 
     @Column()
-    lastName: string
+    lastName!: string;
+
+    @Column('text')
+    passwordHash!: string
 
     @Column('float64')
-    accountBalance: number
+    accountBalance!: number;
 
     @Column('date')
-    registrationDate: Date
+    registrationDate!: Date;
 
     @Column({ length: 1024 })
-    address: string
+    address!: string;
 
-    @Column()
-    accountActivated: boolean = false
+    @Column('bool')
+    accountActivated = false
 
     @Column('date')
-    lastAccessDate: Date
+    lastAccessDate!: Date;
 
-    //relations
-    @OneToMany()
-    passCards:
+    @OneToOne(() => PassCard,  {cascade: ['remove', "soft-remove"]})
+    userCard!: PassCard
+
+    @OneToOne(() => PassCard)
+    passCard!: PassCard;
+
+    @OneToMany(() => TransactionOperation, t => t.transactionActor)
+    userTransactions!: TransactionOperation[]
 }
