@@ -5,7 +5,8 @@ import {
     PassPoint,
     TransactionOperation,
     UsageRecord,
-    User
+    User,
+    AppUserSession
 } from './entities';
 
 
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
     password: '',
     database: 'peage20db',
     synchronize: true,              //TODO: remove synchronize in production
-    entities: [PassCard, PassPoint, TransactionOperation, UsageRecord, User],
+    entities: [PassCard, PassPoint, TransactionOperation, UsageRecord, User, AppUserSession],
     migrations: [],
     logging: true,
     subscribers: []

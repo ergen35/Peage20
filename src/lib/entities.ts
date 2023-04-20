@@ -1,3 +1,4 @@
+import { AppUserSession } from '../entities/AppUserSession';
 import { PassCard } from "../entities/PassCard";
 import { PassPoint } from "../entities/PassPoint";
 import { TransactionOperation } from "../entities/TransactionOperation";
@@ -7,10 +8,11 @@ import { User } from "../entities/User";
 
 
 export {
-    PassCard,
+    AppUserSession, PassCard,
     PassPoint,
     TransactionOperation,
     TransactionStatus,
     UsageRecord,
     User
 };
+

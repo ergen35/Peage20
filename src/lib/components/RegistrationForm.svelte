@@ -1,5 +1,22 @@
-<script>
-    import { Button, Modal, Label, Input, Checkbox } from 'flowbite-svelte'
+<script lang="ts">
+    import { Button, Input, Label } from 'flowbite-svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
+    let username: string;
+    let password: string;
+    let confirmPassword: string;
+
+    function registerUser(){
+        if((username && password && confirmPassword))
+        {
+            if(password === confirmPassword)
+            {
+                dispatch('submitregistration', {username, password})
+            }
+        }
+    }
 </script>
 
 <style>
@@ -9,23 +26,21 @@
 </style>
 
 <div>
-    <form class="flex flex-col space-y-6" action="#">
-        <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Sign in to our platform</h3>
+    <form on:submit|preventDefault={() => registerUser()} class="flex flex-col space-y-6" action="#">
+        <div class=" bs5-text-center">
+            <h3 class="mb-2 text-xl font-medium text-gray-900 dark:text-white">Inscrivez-vous Ici</h3>
+        </div>
         <Label class="space-y-2">
-        <span>Numéro Tél.</span>
-        <Input type="number" name="email" placeholder="988 055 088" required />
+            <span>Numéro Tél.</span>
+            <Input type="number" name="email" bind:value={username} placeholder="exemple: 988 055 088" required />
         </Label>
         <Label class="space-y-2">
-        <span>Mot de passe</span>
-        <Input type="password" name="password" placeholder="•••••" required />
+            <Input type="password" name="password" bind:value={password} placeholder="Mot de passe" required />
         </Label>
-        <div class="flex items-start">
-            <Checkbox>Remember me</Checkbox>
-            <a href="/" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost password?</a>
-        </div>
-        <Button type="submit" class="w-full1">Login to your account</Button>
-        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered? <a href="/" class="text-blue-700 hover:underline dark:text-blue-500">Create account</a>
-        </div>
+        <Label class="space-y-2">
+            <Input type="password" name="confirm_password" bind:value={confirmPassword} placeholder="Confirm. Mot de passe" required />
+        </Label>
+
+        <Button type="submit" color="dark" class="w-full">Inscription</Button>
     </form>
 </div>

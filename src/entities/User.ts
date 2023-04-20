@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PassCard } from "./PassCard";
+import { AppUserSession } from "./AppUserSession";
 import { TransactionOperation } from "./TransactionOperation";
 
 @Entity()
@@ -14,8 +15,14 @@ export class User {
     @Column('varchar')
     lastName!: string;
 
+    @Column('varchar')
+    phoneNumber!:string
+
     @Column('text')
     passwordHash!: string
+
+    @Column('text')
+    extraSecret!: string;
 
     @Column('double')
     accountBalance!: number;
@@ -40,4 +47,7 @@ export class User {
 
     @OneToMany(() => TransactionOperation, t => t.transactionActor)
     userTransactions!: TransactionOperation[]
+
+    @OneToOne(() => AppUserSession, s => s.user, { cascade: true })
+    session!: AppUserSession
 }

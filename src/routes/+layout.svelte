@@ -20,6 +20,16 @@
     import type { LayoutData } from "./$types";
 
     export let data: LayoutData;
+
+    function handleLoginSubmit(e: CustomEvent<{username: string, password: string}>)
+    {
+        alert(e.detail.username)
+    }
+
+    function handleRegistration(e: CustomEvent<{username: string, password: string}>)
+    {
+        alert(e.detail.username)
+    }
 </script>
 
 <div class="bs5-container-fluid">
@@ -84,10 +94,10 @@
 <Modal bind:open={$isAuthModalOn}>
     <Tabs>
         <TabItem open title="Connexion">
-            <LoginForm />
+            <LoginForm on:loginsubmit={handleLoginSubmit} />
         </TabItem>
         <TabItem title="Inscription">
-            <RegistrationForm />
+            <RegistrationForm on:submitregistration={handleRegistration}/>
         </TabItem>
     </Tabs>
 </Modal>
