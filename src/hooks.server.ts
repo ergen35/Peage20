@@ -1,4 +1,7 @@
+import { OCrypto } from "$lib/OCrypto";
 import { AppDataSource } from "$lib/data-sources";
+import { AppUserSession } from "$lib/entities";
+import type { Handle } from "@sveltejs/kit";
 import { createConnection as createMySqlConnection } from "mysql";
 import type { DataSource } from "typeorm";
 
@@ -33,7 +36,7 @@ function createDatabaseIfNotExists(dataSource: DataSource) {
 
         console.log("Database created");
         resolve(true)
-    }) 
+    })
 }
 
 
@@ -43,7 +46,7 @@ await createDatabaseIfNotExists(AppDataSource);
 //introduce a 5000ms wait before working on the newly created database
 console.log("Starting 5000ms wait.")
 const execDelay = new Promise((resolve) => {
-    setTimeout(() =>{
+    setTimeout(() => {
         console.log("5000ms wait ended.")
         resolve(0)
     }, 5000)
@@ -59,3 +62,51 @@ if (!AppDataSource.isInitialized) {
 if (AppDataSource.isInitialized) {
     console.log("App Data source is initialized and ready");
 }
+
+
+
+
+//Request handlers
+
+//handle
+export const handle: Handle = async function ({ event, resolve }) {
+
+    //get cookies
+    //get auth cookie
+    const authCookie = event.cookies.get('Pag20_CTKN' || '');
+
+    if (authCookie) {
+        const decodedToken = OCrypto.verifyAnddecodeJwtToken(String(authCookie))
+        const sessionHash = JSON.parse(decodedToken).sessionId
+
+        if (sessionHash) {
+            const sessionRepos = AppDataSource.getRepository(AppUserSession);
+            //find session
+            const session = await sessionRepos.findOne({
+                relations: {
+                    user: true
+                },
+                where: {
+                    hash: sessionHash
+                }
+            });
+
+            if (session) {
+                //TODO: add some more cookies for accessibility
+                // event.cookies.set('', '')
+                //TODO: add as musch as infos as possible
+                event.locals.user = { username: session.user?.phoneNumber, accountActivated: session.user?.accountActivated }
+
+                // return resolve(event);
+            }
+        }
+    }
+    else {
+        event.locals.user = null;
+    }
+
+    return resolve(event);
+}
+
+
+export const getSession: GetSession
