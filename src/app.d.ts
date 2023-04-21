@@ -1,11 +1,13 @@
 import 'reflect-metadata';
+import { AppUserInfos } from './entities/AppUserInfos';
 
-// See https://kit.svelte.dev/docs/types#app
-// for information about these interfaces
+
 declare global {
 	namespace App {
 		// interface Error {}
-		// interface Locals {}
+		interface Locals {
+			user: AppUserInfos | null
+		}
 		// interface PageData {}
 		// interface Platform {}
 	}

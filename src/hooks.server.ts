@@ -1,6 +1,6 @@
 import { OCrypto } from "$lib/OCrypto";
 import { AppDataSource } from "$lib/data-sources";
-import { AppUserSession } from "$lib/entities";
+import { AppUserInfos, AppUserSession } from "$lib/entities";
 import type { Handle } from "@sveltejs/kit";
 import { createConnection as createMySqlConnection } from "mysql";
 import type { DataSource } from "typeorm";
@@ -94,10 +94,13 @@ export const handle: Handle = async function ({ event, resolve }) {
             if (session) {
                 //TODO: add some more cookies for accessibility
                 // event.cookies.set('', '')
-                //TODO: add as musch as infos as possible
-                event.locals.user = { username: session.user?.phoneNumber, accountActivated: session.user?.accountActivated }
 
-                // return resolve(event);
+                const userInfos = new AppUserInfos();
+                userInfos.accountActivated = session.user.accountActivated;
+                userInfos.accountBalance = session.user.accountBalance;
+                userInfos.username = session.user.phoneNumber;
+
+                event.locals.user = userInfos;
             }
         }
     }

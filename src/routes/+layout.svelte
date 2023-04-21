@@ -28,7 +28,6 @@
 
     async function handleRegistration(e: CustomEvent<{username: string, password: string}>)
     {
-        alert(e.detail.username)
         const response = await fetch("/api/auth/register", {
             method: "POST",
             body: JSON.stringify(e.detail),
@@ -42,8 +41,8 @@
             return;
         }
 
-    
-        window.location = "/app"
+        //navigate to dashboard
+        (window as Window).location = "/app"
     }
 </script>
 
@@ -51,11 +50,7 @@
     <div class="bs5-row">
         <Navbar let:hidden let:toggle>
             <NavBrand href="/">
-                <img
-                    src="https://flowbite.com/docs/images/logo.svg"
-                    class="mr-3 h-6 sm:h-9"
-                    alt="Flowbite Logo"
-                />
+                <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
                 <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
                     Peage20
                 </span>
@@ -67,10 +62,8 @@
                         $isAuthModalOn = true;
                     }}
                     color="red"
-                    size="lg"
-                >
-                    <span class="fas fa-user bs5-me-2" /> Commencer</Button
-                >
+                    size="lg">
+                    <span class="fas fa-user bs5-me-2" /> Commencer + {data.user.username}</Button>
                 <NavHamburger on:click={toggle} />
             </div>
             <NavUl {hidden}>
