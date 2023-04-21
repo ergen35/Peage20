@@ -26,9 +26,24 @@
         alert(e.detail.username)
     }
 
-    function handleRegistration(e: CustomEvent<{username: string, password: string}>)
+    async function handleRegistration(e: CustomEvent<{username: string, password: string}>)
     {
         alert(e.detail.username)
+        const response = await fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify(e.detail),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        if(!response.ok){
+            //TODO: signal that registration failed
+            return;
+        }
+
+    
+        window.location = "/app"
     }
 </script>
 

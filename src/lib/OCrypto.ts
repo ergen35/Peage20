@@ -12,8 +12,11 @@ export class OCrypto{
         return webcrypto.getRandomValues(new Uint16Array(16))
     }
 
-
     static convertToBase64String(data: ArrayBuffer){
         return Buffer.from(data).toString('base64');
+    }
+
+    static convertFromBase64ToAscii(data: string){
+        Buffer.from(data).toString('latin1')
     }
 }

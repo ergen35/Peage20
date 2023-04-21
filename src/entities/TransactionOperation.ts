@@ -1,29 +1,29 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./User";
 import { TransactionStatus } from "./TransactionStatus";
+import { User } from "./User";
 
 
 @Entity()
-export class TransactionOperation{
+export class TransactionOperation {
 
     @PrimaryGeneratedColumn()
     id!: number
-    
-    @Column('varchar')
+
+    @Column('varchar', { default: '' })
     transactionID!: string
 
-    @Column('text')
+    @Column('text', { default: '' })
     hash!: string
 
-    @Column('date')
-    initiatedOn!: Date 
+    @Column('double', { default: 0 })
+    initiatedOn!: number
 
-    @Column('double')
+    @Column('double', { default: 0.0 })
     amount!: number
 
     @ManyToOne(() => User, u => u.userTransactions)
     transactionActor!: User
 
-    @Column('varchar')
-    status: string = TransactionStatus.pending.toString() 
+    @Column('varchar', { default: '' })
+    status: string = TransactionStatus.pending.toString()
 }

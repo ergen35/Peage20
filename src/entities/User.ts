@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PassCard } from "./PassCard";
 import { AppUserSession } from "./AppUserSession";
+import { PassCard } from "./PassCard";
 import { TransactionOperation } from "./TransactionOperation";
 
 @Entity()
@@ -9,37 +9,37 @@ export class User {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column('varchar')
+    @Column('varchar', { default: "" })
     fisrtName!: string;
 
-    @Column('varchar')
+    @Column('varchar', { default: '' })
     lastName!: string;
 
-    @Column('varchar')
-    phoneNumber!:string
+    @Column('varchar', { default: '' })
+    phoneNumber!: string
 
-    @Column('text')
+    @Column('text', { default: '' })
     passwordHash!: string
 
-    @Column('text')
+    @Column('text', { default: '' })
     extraSecret!: string;
 
-    @Column('double')
+    @Column('double', { default: 0.0 })
     accountBalance!: number;
 
-    @Column('date')
-    registrationDate!: Date;
+    @Column('double', { default: 0 })
+    registrationDate!: number
 
-    @Column('text')
+    @Column('text', { default: '' })
     address!: string;
 
-    @Column('bool')
+    @Column('bool', { default: false })
     accountActivated = false
 
-    @Column('date')
-    lastAccessDate!: Date;
+    @Column('double', { default: 0 })
+    lastAccessDate!: number;
 
-    @OneToOne(() => PassCard, { cascade: ['remove', "soft-remove"] })
+    @OneToOne(() => PassCard, { cascade: true })
     userCard!: PassCard
 
     @OneToOne(() => PassCard, pc => pc.cardOwner)

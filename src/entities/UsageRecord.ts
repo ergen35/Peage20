@@ -1,18 +1,18 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PassPoint } from "./PassPoint";
 import { PassCard } from "./PassCard";
+import { PassPoint } from "./PassPoint";
 
 
 @Entity()
-export class UsageRecord{
+export class UsageRecord {
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column('date')
-    usageDate: Date = new Date(Date.now())
+    @Column('double', { default: 0 })
+    usageDate!: number
 
-    @Column('double')
+    @Column('double', { default: 0.0 })
     paidAmount!: number
 
     @ManyToOne(() => PassPoint, pp => pp.usageRecords)

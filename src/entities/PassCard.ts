@@ -9,16 +9,16 @@ export class PassCard {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column('varchar')
+    @Column('varchar', { default: '' })
     name!: string;
 
-    @Column('varchar')
+    @Column('varchar', { default: '' })
     cardID!: string;
 
-    @Column('date')
-    creationDate!: Date;
+    @Column('double', { default: 0 })
+    creationDate!: number
 
-    @Column('bool')
+    @Column('bool', { default: false })
     isActivated!: boolean;
 
     @OneToOne(() => User, u => u.passCard)

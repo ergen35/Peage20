@@ -1,44 +1,56 @@
 import { OCrypto } from '$lib/OCrypto';
 import { AppDataSource } from '$lib/data-sources';
-import { User } from '$lib/entities';
+import { User, AppUserSession } from '$lib/entities';
 import { error } from '@sveltejs/kit';
 import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';
 
 
 export const POST: RequestHandler =  async ({ request }) => {
-    const body: { username: string, password: string } = await request.json();
+    const body: { username: string, password: string } = await request.json()
 
     //get user by phone number
-    const usersRepos = AppDataSource.getRepository(User);
+    const usersRepos = AppDataSource.getRepository(User)
     const existingUser = await usersRepos.findOneBy({ phoneNumber: body.username })
 
     if (existingUser) {
-        throw error(404, new Error('user already exists'))
-        //FIXME: or return a bad request response
+        throw error(400, new Error('user already exists'))
     }
 
     //generate salt & compute password hash
-    const salt = OCrypto.generateSalt();
-    const computedHash = OCrypto.computeHash(body.password, Buffer.from(salt));
+    const salt = OCrypto.generateSalt()
+    const computedHash = OCrypto.computeHash(body.password, Buffer.from(salt))
 
     //register the user with the given parameters
-    let user = new User();
-    user.phoneNumber = body.username;
+    let user = new User()
+    user.phoneNumber = body.username
     user.extraSecret = OCrypto.convertToBase64String(salt);
-    user.passwordHash = computedHash;
+    user.passwordHash = computedHash
+    user.registrationDate = Date.now()
 
-    user = await usersRepos.save(user);
+    user = await usersRepos.save(user)
 
     //create session
+    const sessionsRepos = AppDataSource.getRepository(AppUserSession)
+    let session = new AppUserSession()
+    session.user = user
+    session.hash = OCrypto.convertToBase64String(Buffer.from(user.phoneNumber))
 
-    //return {status, header, body } 
+    session = await sessionsRepos.save(session);
+    user.session = session;
 
-    return new Response(null, {
+    await usersRepos.save(user);
+
+    return new Response("successful registration!", {
         status: 201,
         headers: {
-
+            'Set-Cookie': serialize('PAg20-CTkN', OCrypto.convertToBase64String(Buffer.from(session.id)), {
+             path: '/',
+             httpOnly: true,
+             sameSite: 'strict',
+             maxAge: 60 * 60 * 24, // one day
+         }),
         },
-        statusText: ""
+        statusText: "success",
     })
 }

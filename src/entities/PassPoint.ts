@@ -3,15 +3,15 @@ import { UsageRecord } from "./UsageRecord";
 
 
 @Entity()
-export class PassPoint{
-    
+export class PassPoint {
+
     @PrimaryGeneratedColumn()
     id!: string;
 
-    @Column('text')
+    @Column('text', { default: '' })
     name!: string;
 
-    @Column('text')
+    @Column('text', { default: '' })
     geoAddress!: string;
 
     @OneToMany(() => UsageRecord, u => u.passPoint)
