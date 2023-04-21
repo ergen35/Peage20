@@ -107,6 +107,3 @@ export const handle: Handle = async function ({ event, resolve }) {
 
     return resolve(event);
 }
-
-
-export const getSession: GetSession
