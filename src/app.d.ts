@@ -15,7 +15,7 @@ declare global {
 			user:  AppUserInfos | null
 		}
 		interface LayoutServerData{
-			user:  AppUserInfos | null
+			user:  AppUserInfos
 		}
 		// interface Platform {}
 	}

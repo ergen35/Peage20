@@ -3,5 +3,3 @@
     
     export let data: LayoutData;
 </script>
-
-<slot></slot>

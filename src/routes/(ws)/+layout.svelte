@@ -17,7 +17,7 @@
         Tabs,} 
     from "flowbite-svelte";
     import "../app.css";
-    import { isAuthModalOn } from "../app-store";
+    import { isAuthModalOn } from "../../app-store";
     import type { LayoutServerData } from "./$types";
 
     export let data: LayoutServerData;

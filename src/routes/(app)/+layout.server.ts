@@ -1,5 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async () => {
-    return {};
+    return {
+        user: null
+    };
 }) satisfies LayoutServerLoad;
