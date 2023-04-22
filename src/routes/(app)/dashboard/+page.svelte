@@ -3,3 +3,6 @@
 
     export let data: PageData;
 </script>
+
+
+This is the dashboard
