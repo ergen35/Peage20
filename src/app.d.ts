@@ -8,7 +8,15 @@ declare global {
 		interface Locals {
 			user: AppUserInfos | null
 		}
-		// interface PageData {}
+		interface PageData {
+			user: AppUserInfos | null
+		}
+		interface LayoutData{
+			user:  AppUserInfos | null
+		}
+		interface LayoutServerData{
+			user:  AppUserInfos | null
+		}
 		// interface Platform {}
 	}
 }

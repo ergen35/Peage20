@@ -31,13 +31,75 @@
     export let data: PageData;
 </script>
 
+<style>
+
+    .neonText{
+            color: #fff;
+            text-shadow: 
+                0 0 7px #fff,
+                0 0 10px #fff,
+                0 0 21px #fff,
+                0 0 42px #0fa,
+                0 0 82px #0fa,
+                0 0 92px #0fa,
+                0 0 102px #0fa,
+                0 0 151px #0fa;
+        }
+
+        .neonText{
+            animation: flicker 1.5s infinite;
+        }
+
+        /* Flickering animation */
+
+        @keyframes flicker{
+            0%, 18%, 22%, 25%, 53%, 57%, 100%{
+               text-shadow: 
+                0 0 4px #fff,
+                0 0 11px #fff,
+                0 0 19px #fff,
+                0 0 30px rgb(241, 142, 28),
+                0 0 30px rgb(241, 142, 28),
+                0 0 30px rgb(241, 142, 28),
+                0 0 30px rgb(241, 142, 28),
+                0 0 30px rgb(241, 142, 28);
+            }
+
+            20%, 24%, 44%{
+                text-shadow: none;
+            }
+        }
+
+</style>
+
 <div class="bs5-row">
+    <div class="text-white text-5xl mt-3">
+        <i class="text-gray-500 text-6xl neonText">Peage20</i>
+    </div>
+
     <div class="bs5-col bs5-col-sm-12 bs5-col-md-6">
         <div class="bs5-fs-3 bs5-mt-5">
-            <p>
-                Obtenez une carte de passage pour votre véhicule. <br />
-                Ne perdez plus votre temps.
-            </p>
+           
+            <p class="text-white">
+                <span class="bs5-fs-1">
+                    Obtenez une carte de passage pour votre véhicule.
+                </span> 
+            <ul>
+                <li>
+                    <span class="text-purple-600"><span class="fas fa-shipping-fast fa-fw"></span> Ne perdez plus votre temps.</span>
+                </li>
+                <li>
+                    <span class="text-orange-200"> <span class="fas fa-money-check fa-fw"></span> Plus de soucis de monnaie.</span>
+                </li>
+                <li>
+                    <span class="text-green-200"><span class="fas fa-redo fa-fw"></span> Recharge Rapide</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bs5-mb-auto">
+            <Button on:click={() => { $isAuthModalOn = true }} color="red" size="lg">
+                <span class="fas fa-play-circle bs5-me-2" /> Commencer</Button>
         </div>
     </div>
     <div class="bs5-col-lg-6 bs5-col-sm-12 bs5-col-md-6 bs5-col">
@@ -45,13 +107,6 @@
     </div>
 </div>
 
-<div class="bs5-row">
-    <div class="bs5-col-12 bs5-text-center bs5-mt-3">
-        <Button on:click={() => { $isAuthModalOn = true }} color="red" size="lg">
-            <span class="fas fa-user bs5-me-2" /> Commencer</Button>
-    </div>
-    <div class="bs5-mt-2" />
-</div>
 <div class="bs5-row">
     <center class="bs5-mt-5">
         <span class="bs5-fs-3 bs5-fw-bold text-red-700">
