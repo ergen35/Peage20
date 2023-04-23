@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 
-export const load = (async () => {
+export const load = (async ({ locals }) => {
     return {
-        user: null
+        user: structuredClone(locals.user)
     };
 }) satisfies LayoutServerLoad;
