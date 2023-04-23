@@ -1,8 +1,9 @@
 import { AppDataSource } from "$lib/data-sources";
 import { PassCard, PassPoint, PassStation, UsageRecord } from "$lib/entities";
-import { error, type RequestHandler } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
+import { error } from "@sveltejs/kit";
 
-export const POST: RequestHandler = (async ({ params, url }) => {
+export const POST: RequestHandler = async ({ params, url }) => {
     //find station
     const ps = await AppDataSource.manager.findOne(PassStation,
         {
@@ -90,4 +91,4 @@ export const POST: RequestHandler = (async ({ params, url }) => {
         });
     }
 
-}) satisfies RequestHandler;
+};

@@ -12,7 +12,7 @@ export class PassPoint {
     @Column('text', { default: '' })
     name!: string;
 
-    @Column('string')
+    @Column('text')
     passDirection!: string
 
     @Column('text', { default: '' })

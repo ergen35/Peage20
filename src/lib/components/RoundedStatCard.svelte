@@ -3,12 +3,12 @@
     export let value: string;
     export let label: string;
 
-    export let height: number = 120;
-    export let width: number = 120;
+    export let height = 120;
+    export let width = 120;
 
-    export let cardbg: string = "bg-red-700";
-    export let labelColor: string = "text-white";
-    export let valueColor: string = "text-white";
+    export let cardbg = "bg-red-700";
+    export let labelColor = "text-white";
+    export let valueColor = "text-white";
 </script>
 
 <div style="height: {height}px; width: {width}px;" class="bs5-card bs5-shadow-sm bs5-rounded-circle bs5-p-3 bs5-border {cardbg}">

@@ -1,55 +1,26 @@
 <script lang="ts">
-    import { LoginForm, RegistrationForm } from "$lib/components";
     import {
-        Button,
         Badge,
+        Button,
         Footer,
         FooterCopyright,
         FooterLink,
         FooterLinkGroup,
-        Modal,
         NavBrand,
         NavHamburger,
         NavLi,
         NavUl,
         Navbar,
-        TabItem,
-        Tabs,} 
-    from "flowbite-svelte";
-    import "../app.css";
+    } from "flowbite-svelte";
+    import type { LayoutData } from "./$types";
+
     import { isAuthModalOn } from "../../app-store";
-    import type { LayoutServerData } from "./$types";
 
-    export let data: LayoutServerData;
-
-    function handleLoginSubmit(e: CustomEvent<{username: string, password: string}>)
-    {
-        alert(e.detail.username)
-    }
-
-    async function handleRegistration(e: CustomEvent<{username: string, password: string}>)
-    {
-        const response = await fetch("/api/auth/register", {
-            method: "POST",
-            body: JSON.stringify(e.detail),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        if(!response.ok){
-            //TODO: signal that registration failed
-            return;
-        }
-
-        //navigate to dashboard
-        (window as Window).location = "/app"
-    }
+    export let data: LayoutData;
 </script>
 
 
 <style>
-
     .hero-present{
         background-image: url(/images/bg/bsh.svg);
         background-size: cover;
@@ -57,13 +28,18 @@
 </style>
 
 <div class="hero-present">
-
     <div class="bs5-container-fluid">
         <div class="bs5-row">
             <Navbar fluid let:hidden let:toggle>
                 <NavBrand href="/">
-                    <img src="/favicon.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                    <span class="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                    <img
+                        src="/favicon.png"
+                        class="mr-3 h-6 sm:h-9"
+                        alt="Flowbite Logo"
+                    />
+                    <span
+                        class="self-center whitespace-nowrap text-xl font-semibold dark:text-white"
+                    >
                         Peage20
                     </span>
                 </NavBrand>
@@ -71,8 +47,11 @@
                     {#if data.user}
                         <Button color="red" href="/app">
                             <span>XOF &nbsp;{data.user.accountBalance}</span>
-                            <Badge rounded class="w-4 h-4 ml-2 !p-0 !font-semibold text-red-800 bg-red-200 dark:text-blue-800 dark:bg-blue-200">
-                                <span class="fas fa-user"></span>
+                            <Badge
+                                rounded
+                                class="w-4 h-4 ml-2 !p-0 !font-semibold text-red-800 bg-red-200 dark:text-blue-800 dark:bg-blue-200"
+                            >
+                                <span class="fas fa-user" />
                             </Badge>
                         </Button>
                     {:else}
@@ -81,9 +60,11 @@
                                 $isAuthModalOn = true;
                             }}
                             color="red"
-                            size="lg">
-                            <span class="fas fa-user bs5-me-2" /> Commencer + {data.user.username}</Button>
-                        {/if}
+                            size="lg"
+                        >
+                            <span class="fas fa-user bs5-me-2" /> Commencer</Button
+                        >
+                    {/if}
                     <NavHamburger on:click={toggle} />
                 </div>
                 <NavUl {hidden}>
@@ -118,16 +99,4 @@
             </FooterLinkGroup>
         </Footer>
     </div>
-
 </div>
-
-<Modal bind:open={$isAuthModalOn}>
-    <Tabs>
-        <TabItem open title="Connexion">
-            <LoginForm on:loginsubmit={handleLoginSubmit} />
-        </TabItem>
-        <TabItem title="Inscription">
-            <RegistrationForm on:submitregistration={handleRegistration}/>
-        </TabItem>
-    </Tabs>
-</Modal>
