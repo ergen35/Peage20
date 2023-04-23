@@ -1,7 +1,11 @@
+// import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { AppDataSource } from '$lib/data-sources';
-import { AppUserSession } from '$lib/entities';
 
 export const GET: RequestHandler = async function() {
+    // if(locals.user){
+    //     if(locals.user.userType == "regular-user"){
+    //         return redirect(302, '/dashboard')
+    //     }
+    // }
     return new Response();
 };

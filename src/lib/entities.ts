@@ -1,6 +1,7 @@
 import { AppSettings } from '../entities/AppSettings';
 import { AppUserInfos } from "../entities/AppUserInfos";
 import { AppUserSession } from '../entities/AppUserSession';
+import { PassAgent } from "../entities/PassAgent";
 import { PassCard } from "../entities/PassCard";
 import { PassPoint } from "../entities/PassPoint";
 import { PassStation } from '../entities/PassStation';
@@ -11,9 +12,11 @@ import { User } from "../entities/User";
 
 
 export {
-    AppSettings, AppUserInfos, AppUserSession, PassCard,
-    PassPoint,
-    PassStation,
+    AppSettings,
+    AppUserInfos,
+    AppUserSession,
+    PassAgent, PassCard,
+    PassPoint, PassStation,
     TransactionOperation,
     TransactionStatus,
     UsageRecord,
