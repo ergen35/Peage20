@@ -3,5 +3,3 @@
 
     export let data: PageData;
 </script>
-
-This is admin Dashboard

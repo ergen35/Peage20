@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import {
     AppSettings,
     AppUserSession,
+    PassAgent,
     PassCard,
     PassPoint,
     PassStation,
@@ -20,7 +21,7 @@ export const AppDataSource = new DataSource({
     password: '',
     database: 'peage20db',
     synchronize: true,              //TODO: remove synchronize in production
-    entities: [PassCard, PassPoint, PassStation, TransactionOperation, UsageRecord, User, AppUserSession, AppSettings],
+    entities: [PassAgent, PassCard, PassPoint, PassStation, TransactionOperation, UsageRecord, User, AppUserSession, AppSettings],
     migrations: [],
     logging: true,
     subscribers: []

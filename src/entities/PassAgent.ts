@@ -24,4 +24,7 @@ export class PassAgent{
 
     @Column('varchar', { default: '' })
     phoneNumber!: string
+
+    @Column('varchar')
+    registeredBy!: string
 }
