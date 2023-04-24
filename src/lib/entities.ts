@@ -9,6 +9,7 @@ import { TransactionOperation } from "../entities/TransactionOperation";
 import { TransactionStatus } from "../entities/TransactionStatus";
 import { UsageRecord } from "../entities/UsageRecord";
 import { User } from "../entities/User";
+import { CardRequest } from '../entities/CardRequest';
 
 
 export {
@@ -20,6 +21,7 @@ export {
     TransactionOperation,
     TransactionStatus,
     UsageRecord,
-    User
+    User,
+    CardRequest
 };
 

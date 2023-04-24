@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typ
 import { AppUserSession } from "./AppUserSession";
 import { PassCard } from "./PassCard";
 import { TransactionOperation } from "./TransactionOperation";
+import { CardRequest } from "./CardRequest";
 
 @Entity()
 export class User {
@@ -50,4 +51,7 @@ export class User {
 
     @OneToOne(() => AppUserSession, s => s.user, { cascade: true })
     session!: AppUserSession
+
+    @OneToOne(() => CardRequest, t => t.requestMaker, { cascade: true })
+    cardRequest!: CardRequest
 }
