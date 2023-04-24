@@ -43,9 +43,6 @@ export class User {
     @OneToOne(() => PassCard, { cascade: true })
     userCard!: PassCard
 
-    @OneToOne(() => PassCard, pc => pc.cardOwner)
-    passCard!: PassCard;
-
     @OneToMany(() => TransactionOperation, t => t.transactionActor)
     userTransactions!: TransactionOperation[]
 

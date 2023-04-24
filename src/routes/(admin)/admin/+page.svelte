@@ -39,8 +39,8 @@
     <div class="bs5-col">
         <Card size="sm" >
             Total Passages: { data.usagesCount } <br>
-            Passages Par Heure: { data.agentsCount } <br>
-            Passages Par Jour: { data.agentsCount }
+            Passages Par Heure: { data.usagesCount } <br>
+            Passages Par Jour: { data.usagesCount }
         </Card>
     </div>
 </div>

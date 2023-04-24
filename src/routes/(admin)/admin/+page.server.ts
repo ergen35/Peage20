@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { AppDataSource } from '$lib/data-sources';
-import { PassCard, User, PassAgent, PassPoint, PassStation, UsageRecord } from '$lib/entities';
+import { PassCard, User, PassAgent, PassPoint, PassStation, UsageRecord, CardRequest } from '$lib/entities';
 
 export const load = (async ({parent}) => {
 
@@ -10,6 +10,7 @@ export const load = (async ({parent}) => {
     const passesCount = await AppDataSource.manager.count(PassPoint)
     const stationsCount = await AppDataSource.manager.count(PassStation)
     const usagesCount = await AppDataSource.manager.count(UsageRecord)
+    const requestsCount = await AppDataSource.manager.count(CardRequest)
 
     const { user } = await parent();
     return {
@@ -19,7 +20,7 @@ export const load = (async ({parent}) => {
         passesCount,
         stationsCount,
         usagesCount, 
-        requestsCount: 13,
+        requestsCount,
         agentsCount
     }
 }) satisfies PageServerLoad;
