@@ -1,59 +1,44 @@
 <script lang="ts">
-    import {
-        Indicator,
-        Table,
-        TableBody,
-        TableBodyCell,
-        TableBodyRow,
-        TableHead,
-        TableHeadCell,
-    } from "flowbite-svelte";
+    import { Indicator, Table, TableSearch, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import type { PageData } from "./$types";
 
     export let data: PageData;
 </script>
+
 
 <div class="bs5-row mb-5">
     <center class="bs5-fw-bold bs5-fs-2">Cartes Délivrées</center>
 </div>
 
 <div class="bs5-row mx-2">
-    <Table shadow>
+    <TableSearch placeholder="rechercher par nom, prénoms, tél. ou numéro carte" hoverable shadow>
         <TableHead>
             <TableHeadCell>Nom & Prénoms</TableHeadCell>
-            <TableHeadCell>Date Délivrance</TableHeadCell>
-            <TableHeadCell>Statut</TableHeadCell>
+            <TableHeadCell>Date Enr.</TableHeadCell>
+            <TableHeadCell>Numéro Carte</TableHeadCell>
             <TableHeadCell>Usages</TableHeadCell>
             <TableHeadCell>Propriétaire</TableHeadCell>
         </TableHead>
         <TableBody class="divide-y">
-            {#each data.allUsers as user}
+            {#each data.allUsers as _user}
                 <TableBodyRow>
-                    <TableBodyCell
-                        >{`${user.firstname} ${user.lastname}`}</TableBodyCell
-                    >
-                    <TableBodyCell
-                        >{new Date(
-                            user.registrationDate
-                        ).getDate()}</TableBodyCell
-                    >
+                    <TableBodyCell>{ `${_user.firstName} ${_user.lastName}` }</TableBodyCell>
+                    <!-- <TableBodyCell>{ new Date(user.registrationDate).getDate() }</TableBodyCell>
                     <TableBodyCell>
-                        {#if user.isActivated}
-                            <Indicator color="green" />
+                        {#if user.isActivated }
+                            <Indicator color="green"/>
                         {:else}
-                            <Indicator color="red" />
+                            <Indicator color="red"/>
                         {/if}
-                    </TableBodyCell>
-                    <TableBodyCell>{user.usageRecords.length}</TableBodyCell>
+                    </TableBodyCell> -->
+                    <!-- <TableBodyCell>{ user.usageRecords.length }</TableBodyCell> -->
                     <!-- <TableBodyCell>{`${user.cardOwner.fisrtName} ${card.cardOwner.lastName} `}</TableBodyCell> -->
                 </TableBodyRow>
             {:else}
                 <div class="text-center">
-                    <span class="bs5-fs-3 bs5-fw-bold"
-                        >Aucune carte trouvée</span
-                    >
+                    <span class="bs5-fs-3 bs5-fw-bold">Aucune carte trouvée</span>
                 </div>
             {/each}
         </TableBody>
-    </Table>
+    </TableSearch>
 </div>

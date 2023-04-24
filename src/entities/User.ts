@@ -11,7 +11,7 @@ export class User {
     id!: number;
 
     @Column('varchar', { default: "" })
-    fisrtName!: string;
+    firstName!: string;
 
     @Column('varchar', { default: '' })
     lastName!: string;
@@ -40,7 +40,7 @@ export class User {
     @Column('double', { default: 0 })
     lastAccessDate!: number;
 
-    @OneToOne(() => PassCard, { cascade: true })
+    @OneToOne(() => PassCard, pc => pc.cardOwner, { cascade: true })
     userCard!: PassCard
 
     @OneToMany(() => TransactionOperation, t => t.transactionActor)

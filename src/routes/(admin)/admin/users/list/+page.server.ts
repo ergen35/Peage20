@@ -1,8 +1,9 @@
-import type { LayoutServerLoad } from './$types';
+import type { PageServerLoad } from './$types';
 import { AppDataSource } from '$lib/data-sources';
 import { User, } from '$lib/entities';
 
-export const load: LayoutServerLoad = async ({ parent }) => {
+
+export const load = (async ({ parent }) => {
     
     const usersRepos = AppDataSource.getRepository(User);
     const allUsers = await usersRepos.find({
@@ -17,4 +18,4 @@ export const load: LayoutServerLoad = async ({ parent }) => {
         user, 
         allUsers
     };
-}
+}) satisfies PageServerLoad;
