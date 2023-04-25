@@ -16,6 +16,6 @@ export const load = (async ({ parent }) => {
     
     return {
         user, 
-        allUsers
+        allUsers: structuredClone(allUsers)
     };
 }) satisfies PageServerLoad;

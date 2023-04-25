@@ -16,5 +16,5 @@ export class CardRequest{
     requestDate!: number
 
     @Column('varchar')
-    requestStatus: 'pending' | 'rejected' | 'success' = 'pending';
+    requestStatus: 'no-status' | 'pending' | 'rejected' | 'accepted' = 'no-status';
 }
