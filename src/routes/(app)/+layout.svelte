@@ -1,13 +1,37 @@
 <script lang="ts">
     import { goto } from '$app/navigation';
-    import { Badge, BottomNav, BottomNavItem, Button, Sidebar, SidebarDropdownItem, SidebarDropdownWrapper, SidebarGroup, SidebarItem, SidebarWrapper, Tooltip } from 'flowbite-svelte';
+    import { Badge, BottomNav, Modal, BottomNavItem, Button, Sidebar, SidebarDropdownItem, SidebarDropdownWrapper, SidebarGroup, SidebarItem, SidebarWrapper, Tooltip } from 'flowbite-svelte';
     import type { LayoutData } from './$types';
-    
+    import { onMount } from 'svelte';
+    import { showIdWarnModal } from '../../app-store';
+    import { IdWarnModal } from '$lib/components';
+
     export let data: LayoutData;
 
+    //fetch user data
+
+    onMount(async () => {
+      const res = await fetch('/api/checks/user-infos',
+        {
+          method: 'GET',
+          body: JSON.stringify({ username: data.user?.username }),
+          headers: {
+                  "Content-Type": "application/json",
+              },
+        })
+
+      if(res.ok){
+        const { isUserOk } = await res.json();
+        alert(isUserOk)
+        if(isUserOk === false){
+          $showIdWarnModal = true
+        }
+      }
+    })
 </script>
 
 <div class="bs5-container-fluid">
+
     <div class="bs5-row">
       <!-- Side bar -->
         <div class="bs5-col-sm-auto bs5-bg-light bs5-sticky-top bs5-d-none bs5-d-md-block">
@@ -109,3 +133,6 @@
 
 
 <!-- Modals -->
+<Modal bind:open={ $showIdWarnModal }>
+  <IdWarnModal redirectLink='/my-account/kyc' />
+</Modal>
