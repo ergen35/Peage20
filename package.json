@@ -28,6 +28,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@felte/reporter-dom": "^1.1.5",
+		"@felte/validator-zod": "^1.0.13",
 		"@popperjs/core": "^2.11.7",
 		"@types/dotenv": "^8.2.0",
 		"@types/jsonwebtoken": "^9.0.1",
@@ -38,12 +40,14 @@
 		"cookie": "^0.5.0",
 		"cookie-universal": "^2.2.2",
 		"dotenv": "^16.0.3",
+		"felte": "^1.2.7",
 		"flowbite": "^1.6.5",
 		"flowbite-svelte": "^0.34.9",
 		"jsonwebtoken": "^9.0.0",
 		"mysql": "^2.18.1",
 		"reflect-metadata": "^0.1.13",
 		"sqlite": "^4.1.2",
-		"typeorm": "^0.3.15"
+		"typeorm": "^0.3.15",
+		"zod": "^3.21.4"
 	}
 }

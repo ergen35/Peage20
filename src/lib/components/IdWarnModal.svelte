@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { Card, Button } from 'flowbite-svelte';
+	import { Button } from 'flowbite-svelte';
     export let redirectLink: string;
+    import { showIdWarnModal } from '../../app-store';
     // your script goes here
 </script>
 
@@ -8,11 +9,13 @@
     /* your styles go here */
 </style>
 
-<Card size="sm">
-    <div class="text-center">
-        <span>Veuillez renseigner vos infos</span> <br>
-        <Button size="sm" color="red" href="{redirectLink}">
-            Go!
+<div class="text-center mt-3 p-3">
+    <div class="bs5-fw-bold bs5-text-dark fs-3">
+        Veillez renseigner vos informations
+    </div>
+    <div class="mt-3">
+        <Button outline size="sm" color="red" href="{redirectLink}" on:click={() => { $showIdWarnModal = false } }>
+            Go <span class="fas fa-arrow-right bs5-ms-1"></span>
         </Button>
     </div>
-</Card>
+</div>

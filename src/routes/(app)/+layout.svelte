@@ -13,7 +13,7 @@
     onMount(async () => {
       const res = await fetch('/api/checks/user-infos',
         {
-          method: 'GET',
+          method: 'POST',
           body: JSON.stringify({ username: data.user?.username }),
           headers: {
                   "Content-Type": "application/json",
@@ -22,7 +22,6 @@
 
       if(res.ok){
         const { isUserOk } = await res.json();
-        alert(isUserOk)
         if(isUserOk === false){
           $showIdWarnModal = true
         }
@@ -133,6 +132,6 @@
 
 
 <!-- Modals -->
-<Modal bind:open={ $showIdWarnModal }>
-  <IdWarnModal redirectLink='/my-account/kyc' />
+<Modal bind:open={ $showIdWarnModal } autoclose={false}  >
+  <IdWarnModal redirectLink='/my-account' />
 </Modal>
