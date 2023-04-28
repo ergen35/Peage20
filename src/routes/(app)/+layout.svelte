@@ -22,7 +22,7 @@
 
       if(res.ok){
         const { isUserOk } = await res.json();
-        if(isUserOk === false){
+        if(isUserOk == false){
           $showIdWarnModal = true
         }
       }
@@ -83,7 +83,7 @@
           <div class="bs5-row">
               <div class="bs5-col bs5-text-end mb-4">
                    {#if data.user}
-                      <Button rounded={0} color="dark" shadow="lime">
+                      <Button rounded={0} color="dark" shadow="lime" href="/dashboard">
                         <span>XOF &nbsp;{data.user.accountBalance}</span>
                         <Badge rounded class="w-4 h-4 ml-2 !p-0 !font-semibold bg-green-700 dark:text-blue-800 dark:bg-blue-200">
                             <span class="fas fa-plus text-white" />

@@ -1,82 +1,84 @@
 <script lang="ts">
+    import { Button, Input, Label, Textarea } from "flowbite-svelte";
     import type { PageData } from "./$types";
-    import { Label, Input, Helper, Button, Textarea } from 'flowbite-svelte'
-    import { createForm } from "felte";
 
     export let data: PageData;
 
     //get userdata first
-    let userData = {
-        firstName: '',
-        lastName: '',
-        phoneNumber: data.user?.username,
-        address: ''
+    let userData = data.userData
+
+    async function saveUsersInfo() {
+        if (userData.firstName && userData.lastName) {
+            
+            const response = await fetch("/api/users/infos", {
+                method: "POST",
+                body: JSON.stringify(userData),
+            });
+
+            if (response.ok) {
+                alert("Information sauvegardées");
+            } else {
+                alert("Une erreur s'est produite, veuillez recommencer");
+            }
+        }
     }
 
-    const { form } = createForm({
-        // validate: (values) => {
-        //     const errors = { 
-        //         firstName: new Array<string>(),
-        //         lastName: new Array<string>(),
-        //     }
-
-        //     errors.firstName = [ "malaria", "avocado" ]
-        //     errors.lastName = ['noval', "anti-val"]
-
-        //    return errors;
-        // },
-
-        
-
-        onSubmit(values, context) {
-            
-        },
-
-        onSuccess(response, context) {
-            //save data
-            
-        },
-
-        onError(error, context){
-
-        }
-    })
-
-    const errorIndicator = '<span class="font-medium fas fa-times text-red-500 me-2"></span>'
-    const successIndicator = '<span class="font-medium fas fa-check-circle text-green-500 me-2"></span>'
+    const errorIndicator =
+        '<span class="font-medium fas fa-times text-red-500 me-2"></span>';
+    const successIndicator =
+        '<span class="font-medium fas fa-check-circle text-green-500 me-2"></span>';
 </script>
 
-<form use:form>
-
+<form on:submit|preventDefault={saveUsersInfo}>
     <div class="bs5-row">
-        <div class='bs5-col-md-6 bs5-col-sm-12'>
+        <div class="bs5-col-md-6 bs5-col-sm-12">
             <div class="mb-4">
-                <Label for='firstName' class='block mb-2'>
-                    <span class="font-medium fas fa-check-circle text-green-500 me-2"></span>
+                <Label for="firstName" class="block mb-2">
+                    <span
+                        class="font-medium fas fa-check-circle text-green-500 me-2"/>
                     Prénoms
                 </Label>
-                <Input id='firstName' name='firstName' placeholder="Prénom(s)" bind:value={userData.firstName}/>
+                <Input
+                    id="firstName"
+                    name="firstName"
+                    placeholder="Prénom(s)"
+                    bind:value={userData.firstName}
+                />
             </div>
         </div>
-        <div class='bs5-col-md-6 bs5-col-sm-12'>
+        <div class="bs5-col-md-6 bs5-col-sm-12">
             <div class="mb-4">
-                <Label for='lastName' class='block mb-2'>
-                    <span class="font-medium fas fa-check-circle text-green-500 me-2"></span>
+                <Label for="lastName" class="block mb-2">
+                    <span
+                        class="font-medium fas fa-check-circle text-green-500 me-2"
+                    />
                     Nom
                 </Label>
-                <Input id='lastName' name="lastName" placeholder="Nom" bind:value={userData.lastName} />
+                <Input
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Nom"
+                    bind:value={userData.lastName}
+                />
             </div>
         </div>
     </div>
 
     <div class="bs5-row">
-        <div class='bs5-col-md-6 bs5-col-sm-12'>
+        <div class="bs5-col-md-6 bs5-col-sm-12">
             <div class="mb-4">
-                <Label for='firstname' class='block mb-2'>
-                    <span class="font-medium fas fa-check-circle text-green-500 me-2"></span>
+                <Label for="firstname" class="block mb-2">
+                    <span
+                        class="font-medium fas fa-check-circle text-green-500 me-2"
+                    />
                     Tél.
                 </Label>
-                <Input id='firstname' placeholder="Success input" value={userData.phoneNumber} disabled />
+                <Input
+                    id="firstname"
+                    placeholder="Success input"
+                    value={userData.phoneNumber}
+                    disabled
+                />
             </div>
         </div>
     </div>
@@ -84,11 +86,18 @@
     <div class="bs5-row">
         <div class="bs5-col">
             <div class="mb-4">
-                <Label for='address' class='block mb-2'>
-                    <span class="font-medium fas fa-check-circle text-green-500 me-2"></span>
+                <Label for="address" class="block mb-2">
+                    <span
+                        class="font-medium fas fa-check-circle text-green-500 me-2"
+                    />
                     Adresse
                 </Label>
-                <Textarea id='address' label="Adresse" placeholder="Adresse du domicile"  rows={3} />
+                <Textarea
+                    id="address"
+                    label="Adresse"
+                    placeholder="Adresse du domicile"
+                    rows={3} bind:value={userData.address}
+                />
             </div>
         </div>
     </div>

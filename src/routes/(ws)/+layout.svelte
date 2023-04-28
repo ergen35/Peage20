@@ -40,7 +40,7 @@
         }
 
         //navigate to dashboard
-        (window as Window).location = "/app";
+        (window as Window).location = "/dashboard";
     }
 </script>
 
@@ -70,7 +70,7 @@
                 </NavBrand>
                 <div class="flex md:order-2">
                     {#if data.user}
-                        <Button color="red" href="/app">
+                        <Button color="red" href="/dashboard">
                             <span>XOF &nbsp;{data.user.accountBalance}</span>
                             <Badge
                                 rounded

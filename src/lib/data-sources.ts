@@ -14,7 +14,7 @@ import {
 } from './entities';
 
 
-export const AppDataSource = new DataSource({
+const AppDataSource = new DataSource({
     type: 'mysql',
     host: 'localhost',
     port: 3306,
@@ -27,3 +27,17 @@ export const AppDataSource = new DataSource({
     logging: true,
     subscribers: []
 })
+
+export {
+    AppDataSource,
+    AppSettings,
+    AppUserSession,
+    CardRequest,
+    PassAgent,
+    PassCard,
+    PassPoint,
+    PassStation,
+    TransactionOperation,
+    UsageRecord,
+    User
+}
