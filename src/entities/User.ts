@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { AppUserSession } from "./AppUserSession";
+import { CardRequest } from "./CardRequest";
 import { PassCard } from "./PassCard";
 import { TransactionOperation } from "./TransactionOperation";
-import { CardRequest } from "./CardRequest";
 
 @Entity()
 export class User {

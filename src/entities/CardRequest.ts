@@ -17,4 +17,7 @@ export class CardRequest{
 
     @Column('varchar')
     requestStatus: 'no-status' | 'pending' | 'rejected' | 'accepted' = 'no-status';
+
+    @Column('varchar', { default: "", unique: true })
+    requestTicket!: string
 }

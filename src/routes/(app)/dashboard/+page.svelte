@@ -3,6 +3,19 @@
     import { Card, Button } from "flowbite-svelte";
     
     export let data: PageData;
+
+    async function makeCardRequest(){
+        const response = await fetch('/api/requests', {
+            method: 'POST',
+            body: JSON.stringify({ username: data.user?.username })
+        })
+
+        if(response.ok){
+            const { ticket } = await response.json()
+            data.fullUser!.cardRequest.requestStatus = 'pending';
+            data.fullUser!.cardRequest.requestTicket = ticket;
+        }
+    }
 </script>
 
 
@@ -22,25 +35,23 @@
                     </p>
                 </div>
             </Card>
-        {:else if data.fullUser.cardRequest.requestStatus == 'pending'}
+        {:else if data.fullUser.cardRequest.requestStatus == 'rejected'}
             <p>
                 Vous n'avez fait aucune demande de carte ou votre demande de carte à été rejetée <br>
-                <Button>
+                <Button on:click={makeCardRequest}>
                     Faire une demande
                 </Button>
             </p>
-        {:else if data.fullUser.cardRequest.requestStatus == 'rejected'}
+        {:else if data.fullUser.cardRequest.requestStatus == 'pending'}
             <p>
                 Votre demande de carte est en cours de traitement, veillez patienter. <br>
-                <Button>
-                    Faire une demande
-                </Button>
+                Numéro de ticket: <b>{data.fullUser.cardRequest.requestTicket}</b>
             </p>
         {/if}
     {:else}
         <p>
             Vous n'avez fait aucune demande de carte. <br>
-            <Button>
+            <Button on:click={makeCardRequest}>
                 Faire une demande
             </Button>
         </p>

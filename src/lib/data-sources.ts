@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { AppSettings } from '../entities/AppSettings';
 import { AppUserInfos } from "../entities/AppUserInfos";
 import { AppUserSession } from '../entities/AppUserSession';
+import { CardRequest } from '../entities/CardRequest';
 import { PassAgent } from "../entities/PassAgent";
 import { PassCard } from "../entities/PassCard";
 import { PassPoint } from "../entities/PassPoint";
@@ -10,7 +11,6 @@ import { TransactionOperation } from "../entities/TransactionOperation";
 import { TransactionStatus } from "../entities/TransactionStatus";
 import { UsageRecord } from "../entities/UsageRecord";
 import { User } from "../entities/User";
-import { CardRequest } from '../entities/CardRequest';
 
 import { DataSource } from 'typeorm';
 
@@ -31,16 +31,12 @@ const AppDataSource = new DataSource({
 
 export {
     AppDataSource,
-    AppSettings,
-    AppUserSession,
+    AppSettings, AppUserInfos, AppUserSession,
     CardRequest,
     PassAgent,
     PassCard,
     PassPoint,
     PassStation,
-    TransactionOperation,
-    UsageRecord,
-    User,
-    TransactionStatus,
-    AppUserInfos,
-}
+    TransactionOperation, TransactionStatus, UsageRecord,
+    User
+};
