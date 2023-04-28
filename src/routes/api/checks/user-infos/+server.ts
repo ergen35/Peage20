@@ -1,7 +1,6 @@
+import { AppDataSource, User } from '$lib/data-sources';
+import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import  { AppDataSource } from '$lib/data-sources';
-import { User } from '$lib/entities';
-import { error, json } from '@sveltejs/kit'; 
 
 export const POST: RequestHandler = async ({ request }) => {
     

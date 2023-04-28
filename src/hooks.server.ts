@@ -1,6 +1,5 @@
 import { OCrypto } from "$lib/OCrypto";
-import { AppDataSource } from "$lib/data-sources";
-import { AppUserInfos, AppUserSession } from "$lib/entities";
+import { AppDataSource, AppUserInfos, AppUserSession } from "$lib/data-sources";
 import type { Handle } from "@sveltejs/kit";
 import { createConnection as createMySqlConnection } from "mysql";
 import type { DataSource } from "typeorm";

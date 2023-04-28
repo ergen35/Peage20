@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { Indicator, Badge, Table, TableSearch, Button, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
+    import { Badge, Button, Indicator, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, TableSearch } from 'flowbite-svelte';
     import type { PageData } from "./$types";
-    import type {  User } from "$lib/entities";
 
     export let data: PageData;
 

@@ -1,6 +1,5 @@
 import { OCrypto } from '$lib/OCrypto';
-import { AppDataSource } from '$lib/data-sources';
-import { AppUserSession, User } from '$lib/entities';
+import { AppDataSource, AppUserSession, User } from '$lib/data-sources';
 import { error } from '@sveltejs/kit';
 import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';

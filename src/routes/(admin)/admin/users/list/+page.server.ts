@@ -1,6 +1,5 @@
+import { AppDataSource, User } from '$lib/data-sources';
 import type { PageServerLoad } from './$types';
-import { AppDataSource } from '$lib/data-sources';
-import { User, } from '$lib/entities';
 
 
 export const load = (async ({ parent }) => {

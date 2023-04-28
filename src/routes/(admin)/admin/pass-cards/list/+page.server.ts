@@ -1,5 +1,4 @@
-import { AppDataSource } from '$lib/data-sources';
-import { PassCard } from '$lib/entities';
+import { AppDataSource, PassCard } from '$lib/data-sources';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ parent }) => {

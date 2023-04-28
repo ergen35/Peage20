@@ -1,5 +1,5 @@
+import { AppUserInfos } from "$lib/data-sources";
 import type { LayoutServerLoad } from './admin/$types';
-import {AppUserInfos} from '$lib/entities';
 
 export const load = (async () => {
     //TODO: get real data
