@@ -15,7 +15,7 @@
                 <Sidebar>
                   <SidebarWrapper divClass='overflow-y-auto py-4 px-3 rounded dark:bg-gray-800'>
                     <div class="text-center">
-                        <span class="bs5-fs-3 bs5-fw-bold bs5-fst-italic text-red-700">Peage20 - Admin</span>
+                        <span class="bs5-fs-3 bs5-fw-bold bs5-fst-italic text-dark">Peage20 - Admin</span>
                     </div>
                     <hr class="mt-3 mb-2">
                     <SidebarGroup>
@@ -31,7 +31,11 @@
                             </svelte:fragment>
                             <svelte:fragment slot="subtext">
                             <span class="inline-flex justify-center items-center p-4 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">
-                                    99+
+                              {#if data.reqCount > 99}
+                                <span>99+</span>  
+                              {:else}
+                                { data.reqCount }
+                              {/if}
                             </span>
                             </svelte:fragment>
                       </SidebarItem>
@@ -81,37 +85,6 @@
           <div class="bs5-row">
             <slot></slot>
           </div>
-
-          <!-- <div class="bs5-d-md-block bs5-d-md-none">
-            <BottomNav position="absolute" navType="application" innerDiv="grid-cols-5">
-                <BottomNavItem btnName="Home" appBtnPosition="left" on:click={() => goto('/')}>
-                    <span class="fas fa-home fa-fw bs5-fs-5"></span>
-                    <Tooltip arrow={false}>Accueil</Tooltip>
-                </BottomNavItem>
-                <BottomNavItem btnName="Wallet" appBtnPosition="middle"on:click={() => goto('/my-account')}>
-                    <span class="far fa-user fa-fw bs5-fs-5"></span>
-                    <Tooltip arrow={false}>Mon Compte</Tooltip>
-                </BottomNavItem>
-                <div class="flex items-center justify-center">
-                  <BottomNavItem btnName="Recharger Carte"
-                                appBtnPosition="custom" btnDefault="inline-flex items-center justify-center w-10 h-10 font-medium bs5-bg-dark rounded-full hover:bg-grey-500 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                      <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"></path>
-                    </svg>
-                    <Tooltip arrow={false}>Recharger</Tooltip>
-                  </BottomNavItem>
-                </div>
-                <BottomNavItem btnName="Tableau de bord" appBtnPosition="middle" on:click={() => goto('/dashboard')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>
-                  <Tooltip arrow={false}>Tableau de bord</Tooltip>
-                </BottomNavItem>
-                <BottomNavItem btnName="Sign-Out" appBtnPosition="right">
-                    <span class="fas fa-power-off text-red-600"></span>
-                    <Tooltip arrow={false}>Déconnexion</Tooltip>
-                </BottomNavItem>
-            </BottomNav>
-          </div> -->
-
         </div>
     </div>
 </div>
