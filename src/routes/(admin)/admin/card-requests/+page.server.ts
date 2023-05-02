@@ -7,6 +7,9 @@ export const load = (async ({ locals }) => {
     const requests = await AppDataSource.manager.find(CardRequest, {
         relations: {
             requestMaker: true
+        },
+        where: {
+            requestStatus: "pending"
         }
     });
     

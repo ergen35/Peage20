@@ -48,7 +48,7 @@
             <div class="bs5-row">
                 <div class="bs5-col-8">
                     <h3 class="bs5-fs-1"> { data.cardsCount }</h3>
-                    <h4 class="bs5-fs-4">Cartes Délivrées</h4>
+                    <h4 class="bs5-fs-4">Cartes</h4>
                     <p style="font-size: 13px;">{ data.cardsCount } actives(s)</p>
                 </div>
                 <div class="bs5-col-4 text-center bs5-my-auto bs5-bg-white p-2 bs5-rounded-circle" style="height:90px; width: 90px;">
@@ -77,7 +77,7 @@
 <div class="bs5-row">
 
     <div class="bs5-col-2">
-        <Card size="sm" color="green" padding="none" class="bs5-rounded-0">
+        <Card size="sm" color="green" padding="none" class="bs5-rounded-2">
             <div class="text-center">
                 <span class="bs5-d-block bs5-fs-2">{data.stationsCount}</span>
                 <span class="bs5-d-block">
@@ -92,7 +92,7 @@
     </div>
 
     <div class="bs5-col-2">
-        <Card size="sm" color="red" padding="none" class="bs5-rounded-0">
+        <Card size="sm" color="red" padding="none" class="bs5-rounded-2">
             <div class="text-center">
                 <span class="bs5-d-block bs5-fs-2">{data.usagesCount}</span>
                 <span class="bs5-d-block">
@@ -107,7 +107,7 @@
     </div>
 
     <div class="bs5-col-2">
-        <Card size="sm" color="dark" padding="none"  class="bs5-rounded-0">
+        <Card size="sm" color="dark" padding="none"  class="bs5-rounded-2">
             <div class="text-center">
                 <span class="bs5-d-block bs5-fs-2">{data.usagesCount}</span>
                 <span class="bs5-d-block">
@@ -122,7 +122,7 @@
     </div>
 
     <div class="bs5-col-2">
-        <Card size="sm" color="dark" padding="none"  class="bs5-rounded-0">
+        <Card size="sm" color="dark" padding="none"  class="bs5-rounded-2">
             <div class="text-center">
                 <span class="bs5-d-block bs5-fs-2">{data.usagesCount}</span>
                 <span class="bs5-d-block">
@@ -137,7 +137,7 @@
     </div>
 
      <div class="bs5-col-4">
-        <Card size="sm" color="navbar" padding="none"  class="bs5-rounded-0">
+        <Card size="sm" color="navbar" padding="none"  class="bs5-rounded-2">
             <div class="text-center">
                 <span class="bs5-d-block bs5-fs-2">{1 + data.agentsCount}</span>
                 <span class="bs5-d-block">
@@ -158,7 +158,7 @@
 <div class="bs5-row">
     <div class="bs5-col-12">
        <div class="text-center bs5-mt-2">
-            <Button color="dark" size="lg" outline class="bs5-rounded-0"> 
+            <Button color="dark" size="lg" outline class="bs5-rounded-2"> 
                 <span class="fas fa-chart-bar me-2 fa-2x"></span>
                 <span class="bs5-fs-4">Voir toutes les Stats.</span>
             </Button>
