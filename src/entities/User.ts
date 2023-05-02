@@ -51,4 +51,6 @@ export class User {
 
     @OneToOne(() => CardRequest, t => t.requestMaker, { cascade: true })
     cardRequest!: CardRequest
+
+    @Column('boo')
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { Card, Button } from "flowbite-svelte";
+    import { Card, Button, Alert } from "flowbite-svelte";
+    import { goto } from "$app/navigation";
     
     export let data: PageData;
 
@@ -15,17 +16,18 @@
             data.fullUser!.cardRequest.requestStatus = 'pending';
             data.fullUser!.cardRequest.requestTicket = ticket;
         }
+
+        window.location = window.location
     }
 </script>
 
 
 <div class='bs5-row'>
- <div class="col">
+ <div class="bs5-offset-lg-2 bs5-col-lg-8">
     {#if data.fullUser?.cardRequest}
         {#if data.fullUser.cardRequest.requestStatus === 'accepted' && data.fullUser.userCard != null}
             <Card horizontal  size='lg'>
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    <!-- Noteworthy technology acquisitions 2021 -->
                     <span class="far fa-user fa-4x"></span>
                     Numéro de Carte: DAA62538-B8BD-425F-B84D-089B81949D84
                 </h5>
@@ -36,25 +38,51 @@
                 </div>
             </Card>
         {:else if data.fullUser.cardRequest.requestStatus == 'rejected'}
-            <p>
-                Vous n'avez fait aucune demande de carte ou votre demande de carte à été rejetée <br>
-                <Button on:click={makeCardRequest}>
-                    Faire une demande
-                </Button>
-            </p>
+            <Alert color="red">
+                <span slot="icon">
+                    <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>
+                </span>
+                <span class="text-lg font-medium">Statut Ticket: #{data.fullUser.cardRequest.requestTicket}</span>
+                <div slot="extra" class="">
+                    <div class="mt-2 mb-4 text-sm">Votre demande de carte à été rejetée.</div>
+                    <div class="">
+                        <Button on:click={makeCardRequest} size="xs" outline color="blue" class="bs5-rounded-0">
+                            Faire une demande
+                        </Button>
+                    </div>
+                </div>
+            </Alert>
         {:else if data.fullUser.cardRequest.requestStatus == 'pending'}
-            <p>
-                Votre demande de carte est en cours de traitement, veillez patienter. <br>
-                Numéro de ticket: <b>{data.fullUser.cardRequest.requestTicket}</b>
-            </p>
+            <Alert color="blue">
+                <span slot="icon">
+                    <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>
+                </span>
+                <span class="text-lg font-medium">Statut Ticket: #{data.fullUser.cardRequest.requestTicket}</span>
+                <div slot="extra" class="">
+                    <div class="mt-2 mb-4 text-sm">Votre demande de carte est en cours de traitement, veillez patienter.</div>
+                    <div class="">
+                        <Button on:click={() => { window.location = window.location }} size="xs" outline color="blue" class="bs5-rounded-0">
+                           <span class="fas fa-redo bs5-me-1"></span> Actualiser
+                        </Button>
+                    </div>
+                </div>
+            </Alert>
         {/if}
     {:else}
-        <p>
-            Vous n'avez fait aucune demande de carte. <br>
-            <Button on:click={makeCardRequest}>
-                Faire une demande
-            </Button>
-        </p>
+        <Alert color="dark">
+            <span slot="icon">
+                <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>
+            </span>
+            <span class="text-lg font-medium">Statut Ticket: N/A</span>
+            <div slot="extra">
+                <div class="mt-2 mb-4 text-sm"> Vous n'avez fait aucune demande de carte.</div>
+                <div class="">
+                    <Button  on:click={makeCardRequest} size="lg" outline color="blue" class="bs5-rounded-0">
+                        Faire une demande Maintenant
+                    </Button>
+                </div>
+            </div>
+        </Alert>
     {/if}
  </div>
 </div>
@@ -78,5 +106,4 @@
             No transaction available
         {/if}
     </div>
-
 </div>
