@@ -5,7 +5,7 @@ import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';
 
 
-export const POST: RequestHandler = async ({ request }) => {
+export const POST: RequestHandler = async ({ request, locals }) => {
     const body: { username: string, password: string } = await request.json()
 
     //get user by phone number

@@ -60,8 +60,7 @@ import type { Handle } from "@sveltejs/kit";
 //     console.log("App Data source is initialized and ready");
 // }
 
-
-//      {Nom de Domaine}/api/passrecord/{id station}/{id point de passage}?card=37AC490
+// {Nom de Domaine}/api/passrecord/{id station}/{id point de passage}?card=37AC490
 
 //Request handlers
 
@@ -104,6 +103,8 @@ export const handle: Handle = async function ({ event, resolve }) {
     else {
         event.locals.user = null;
     }
+
+    console.log("Done beforehand")
 
     return resolve(event);
 }
