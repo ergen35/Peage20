@@ -1,7 +1,8 @@
 import type { PageServerLoad } from './$types';
 import  { AppDataSource, User, TransactionOperation } from '$lib/data-sources';
+import { redirect } from '@sveltejs/kit';
 
-export const load = (async ({locals}) => {
+export const load = (async ({ locals }) => {
 
     const full_user = await AppDataSource.manager.findOne(User, {
         where: {

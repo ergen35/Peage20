@@ -1,5 +1,5 @@
 import { AppUserInfos, CardRequest, AppDataSource } from "$lib/data-sources";
-import type { LayoutServerLoad } from './admin/$types';
+import type { LayoutServerLoad } from './$types';
 
 export const load = (async () => {
     //TODO: get real data

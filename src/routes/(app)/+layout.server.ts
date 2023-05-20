@@ -1,13 +1,12 @@
 import type { LayoutServerLoad } from './$types';
 import { AppDataSource, User } from "$lib/data-sources"; 
+import { redirect } from '@sveltejs/kit';
 
 export const load = (async ({ locals }) => {
 
     if(!locals.user){
-        //TODO: redirect to login
+        throw redirect(302, "/account/login")
     }
-
-    const appUser = AppDataSource.manager.findOneBy(User, { phoneNumber: locals.user!.username });
 
     return {
         user: structuredClone(locals.user)
