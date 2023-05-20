@@ -17,7 +17,7 @@
     let passwordError = false;
     let usernameError = false;
 
-    function handleLoginSubmit(e: CustomEvent<{ username: string; password: string }>) {
+    async function handleLoginSubmit(e: CustomEvent<{ username: string; password: string }>) {
         let result = schema.validate({ username: e.detail.username, password: e.detail.password })
         if(result.error)
         {
@@ -30,7 +30,23 @@
         }
         else
         {
-            alert(e.detail.username);
+            const response = await fetch("/api/auth/login", {
+                method: "POST",
+                body: JSON.stringify(e.detail),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            
+            if(response.ok)
+            {
+                (window as Window).location = "/dashboard";
+            }
+            else
+            {
+                alert("Nom d'utilisateur ou mot de passe incorrect, veuillez recommencer");
+            }
+
         }
     }
 </script>

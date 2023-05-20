@@ -41,15 +41,15 @@
             </div>
             <Label class="bs5-mt-2">
                 <span class="bs5-d-block bs5-mb-2" style="font-size: 18px;">Numéro Tél.</span>
-                <Input type="number" class="bs5-border-dark bs5-border-1" name="email" bind:value={username} placeholder="exemple: 988 055 088" required />
+                <Input type="number" class="bs5-border-1" name="email" bind:value={username} placeholder="exemple: 988 055 088" required />
             </Label>
             <Label class="bs5-mt-4">
                 <span class="bs5-d-block bs5-mb-2" style="font-size: 18px;">Mot de passe</span>
-                <Input type="password" class="bs5-border-dark bs5-border-1" name="password" bind:value={password} placeholder="Mot de passe" required />
+                <Input type="password" class="bs5-border-1" name="password" bind:value={password} placeholder="Mot de passe" required />
             </Label>
             <Label class="bs5-mt-4">
                 <span class="bs5-d-block bs5-mb-2" style="font-size: 18px;">Confirmer mot de passe</span>
-                <Input type="password" class="bs5-border-dark bs5-border-1" name="confirm_password" bind:value={confirmPassword} placeholder="Confirm. Mot de passe" required />
+                <Input type="password" class="bs5-border-1" name="confirm_password" bind:value={confirmPassword} placeholder="Confirm. Mot de passe" required />
             </Label>
 
             <div class="bs5-mt-5">

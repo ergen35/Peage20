@@ -45,12 +45,12 @@
             </h3>
             <Label class="bs5-mt-5">
                 <span class="bs5-d-block bs5-mb-2" style="font-size: 18px;">Numéro Téléphone</span>
-                <Input type="text" name="email" class="bs5-border-dark bs5-border-1"  bind:color={usernameInputColor} bind:value={username} placeholder="988 055 088" required />
+                <Input type="text" name="email" class="bs5-border-1"  bind:color={usernameInputColor} bind:value={username} placeholder="988 055 088" required />
             </Label>
             
             <Label class="bs5-mt-4">
                 <span class="bs5-d-block bs5-mb-2" style="font-size: 18px;">Mot de passe</span>
-                <Input type="password" class="bs5-border-dark bs5-border-1" bind:color={pwdInputColor}  name="password" bind:value={password} placeholder="•••••" required />
+                <Input type="password" class="bs5-border-1" bind:color={pwdInputColor}  name="password" bind:value={password} placeholder="•••••" required />
             </Label>
 
             <Button type="submit" color="purple" class="bs5-mt-5 bs5-w-50 bs5-shadow-lg" size="lg">

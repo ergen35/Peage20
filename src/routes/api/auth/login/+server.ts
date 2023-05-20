@@ -1,40 +1,51 @@
-import { redirect } from '@sveltejs/kit';
 import { OCrypto } from '$lib/OCrypto';
 import { AppDataSource, AppUserSession, User } from '$lib/data-sources';
 import { error } from '@sveltejs/kit';
 import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async function() {
-    // if(locals.user){
-    //     if(locals.user.userType == "regular-user"){
-    //         return redirect(302, '/dashboard')
-    //     }
-    // }
+export const POST: RequestHandler = async function({ request }) {
+ 
+    const body = await request.json()
 
     //get user by phone number
     const usersRepos = AppDataSource.getRepository(User)
-    const existingUser = await usersRepos.findOneBy({ phoneNumber: body.username })
+    const user = await usersRepos.findOne({ 
+        where: { 
+            phoneNumber: body.username 
+        },
+        relations: {
+            session: true
+        }
+    })
 
-    if (existingUser) {
-        throw error(400, new Error('user already exists'))
+    if (!user) {
+        throw error(404, new Error('user is not registered'))
     }
 
-    //generate salt & compute password hash
-    const salt = OCrypto.generateSalt()
+    //TODO: compute password hash with salt from user object
+    const salt = OCrypto.convertFromBase64ToAscii(user.extraSecret);
     const computedHash = OCrypto.computeHash(body.password, Buffer.from(salt))
 
-    //register the user with the given parameters
-    let user = new User()
-    user.phoneNumber = body.username
-    user.extraSecret = OCrypto.convertToBase64String(salt);
-    user.passwordHash = computedHash
-    user.registrationDate = Date.now()
+    //compare password hashes
+    // console.log("existing hash: " +  user.passwordHash)   
+    // console.log("calculated hash: " +  computedHash)   
 
-    user = await usersRepos.save(user)
+    const compareResult = OCrypto.verifyPassword(body.password, user.passwordHash, salt);
+    console.log("Password comparison result: " + compareResult)
+    
+    if(!(user.passwordHash == computedHash))
+    {
+        throw error(400, "incorrect password");
+    }
 
     //create session
     const sessionsRepos = AppDataSource.getRepository(AppUserSession)
+    if(user.session)
+    {
+        await sessionsRepos.remove(user.session)
+    }
+
     let session = new AppUserSession()
     session.user = user
     session.hash = OCrypto.convertToBase64String(Buffer.from(user.phoneNumber))
@@ -47,7 +58,7 @@ export const GET: RequestHandler = async function() {
 
     //return headers with auth in
     return new Response("successful registration!", {
-        status: 201,
+        status: 200,
         headers: {
             'Set-Cookie': serialize('Pag20_CTKN', OCrypto.tokenizeObject({ sessionId: session.hash }), {
                 path: '/',
@@ -58,6 +69,4 @@ export const GET: RequestHandler = async function() {
         },
         statusText: "success",
     })
-
-    return new Response();
 };
