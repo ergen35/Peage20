@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Button, Input, Label } from 'flowbite-svelte';
+    import { Button, Input, Label, Spinner } from 'flowbite-svelte';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -7,16 +7,27 @@
     let username: string;
     let password: string;
     let confirmPassword: string;
+    export let isRegistering = false;
 
     function registerUser()
     {
+        isRegistering = true;
+
         if((username && password && confirmPassword))
         {
             if(password === confirmPassword)
             {
                 dispatch('submitregistration', {username, password})
+                return;
             }
+            
+            alert("Les mots de passe ne sont pas identiques")
+            isRegistering = false;
+            return;
         }
+
+        alert("Veillez remplir tous les champs")
+        isRegistering = false;
     }
 </script>
 
@@ -43,7 +54,11 @@
 
             <div class="bs5-mt-5">
                 <Button type="submit" color="dark" size="lg" class="bs5-w-75 bs5-shadow-lg">
-                    <span class="fas fa-sign-in-alt bs5-me-2"></span> Inscription
+                    {#if isRegistering}
+                        <Spinner color="white"/>
+                    {:else}
+                        <span class="fas fa-sign-in-alt bs5-me-2"></span> Inscription
+                    {/if}
                 </Button>
             </div>
         </form>
@@ -51,7 +66,7 @@
         <div class="text-center bs5-mt-3">
             <span class="bs5-d-block bs5-display-5 fw-bold bs5-mb-1">Ou</span>
             <Button type="button" href="/account/login" color="yellow" class="bs5-rounded-2 bs5-shadow-lg" size="md">
-                <span class="fas fa-sign-in-alt bs5-me-2"></span> S'inscrire
+                <span class="fas fa-user bs5-me-2"></span> Se Connecter
             </Button>
         </div>
         <div class="bs5-text-center mt-2">

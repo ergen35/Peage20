@@ -40,7 +40,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
     //link user & session
     user.session = session;
     await usersRepos.save(user);
-
+    
     //return headers with auth in
     return new Response("successful registration!", {
         status: 201,
