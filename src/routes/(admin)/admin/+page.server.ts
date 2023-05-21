@@ -5,11 +5,15 @@ export const load = (async ({parent}) => {
 
     const cardsCount = await AppDataSource.manager.count(PassCard); 
     const usersCount = await AppDataSource.manager.count(User);
-    const agentsCount = await AppDataSource.manager.count(PassAgent)
-    const passesCount = await AppDataSource.manager.count(PassPoint)
-    const stationsCount = await AppDataSource.manager.count(PassStation)
-    const usagesCount = await AppDataSource.manager.count(UsageRecord)
-    const requestsCount = await AppDataSource.manager.count(CardRequest)
+    const agentsCount = await AppDataSource.manager.count(PassAgent);
+    const passesCount = await AppDataSource.manager.count(PassPoint);
+    const stationsCount = await AppDataSource.manager.count(PassStation);
+    const usagesCount = await AppDataSource.manager.count(UsageRecord);
+    const requestsCount = await AppDataSource.manager.count(CardRequest, {
+        where: {
+            requestStatus: "pending"
+        }
+    });
 
     const { user } = await parent();
     return {

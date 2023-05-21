@@ -10,11 +10,14 @@ export const POST: RequestHandler = async ({ url, request }) => {
 
     if(!requestId)
         throw error(400, "bad request, request id not provided")
+        
+    if(isNaN(Number(requestId)))
+        throw error(400, "invalid request")
 
     //find card request
     const cardRequest = await AppDataSource.manager.findOne(CardRequest, {
         where: { 
-            id: requestId 
+            id: Number(requestId) 
         },
         relations: {
             requestMaker: true

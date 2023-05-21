@@ -1,5 +1,4 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { TransactionStatus } from "./TransactionStatus";
 import { User } from "./User";
 
 
@@ -25,5 +24,5 @@ export class TransactionOperation {
     transactionActor!: User
 
     @Column('varchar', { default: '' })
-    status: string = TransactionStatus.pending.toString()
+    status: 'rejected' | 'pending' | 'success' | 'no-status' = 'no-status'
 }

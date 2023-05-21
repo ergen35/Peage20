@@ -4,7 +4,7 @@ import { User } from "./User";
 @Entity()
 export class AppUserSession {
 
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn("uuid")
     id!: string
 
     @OneToOne(() => User, u => u.session)

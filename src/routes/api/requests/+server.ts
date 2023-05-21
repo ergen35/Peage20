@@ -33,7 +33,8 @@ export const POST: RequestHandler = async ({ request }) => {
         user.cardRequest.requestStatus = "pending";
 
         await cardReqRepos.save(user.cardRequest);
-        requestTicket = user.cardRequest.id
+        
+        requestTicket = user.cardRequest.requestTicket
     }
     else
     {
