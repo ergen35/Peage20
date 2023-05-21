@@ -1,6 +1,6 @@
-import type { PageServerLoad } from './$types';
 import { AppDataSource, CardRequest } from '$lib/data-sources';
 import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
     const requestId = params.requestId

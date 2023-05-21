@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { Card, Button, Alert } from "flowbite-svelte";
+    import { Card, Button, Alert, Badge } from "flowbite-svelte";
     import { goto } from "$app/navigation";
     import { showIdWarnModal } from "../../../app-store";
     
@@ -39,16 +39,36 @@
         <div class="bs5-offset-lg-2 bs5-col-lg-8 bs5-offset-sm-1 bs5-col-sm-10 bs5-offset-md-2 bs5-col-lg-8">
             {#if data.fullUser?.cardRequest}
                 {#if data.fullUser.cardRequest.requestStatus === 'accepted' && data.fullUser.userCard != null}
-                    <Card horizontal  size='lg'>
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            <span class="far fa-user fa-4x"></span>
-                            Numéro de Carte: DAA62538-B8BD-425F
+                    <Card horizontal color="green" size='lg'>
+                        <h5 class="mb-2 ">
+                            <div class="bs5-row">
+                                <div class="bs5-col-2">
+                                    <span class="far fa-id-card text-yellow-700 fa-3x"></span>
+                                </div>
+                                <div class="bs5-col bs5-text-start bs5-ms-3">
+                                  <span class="bs5-d-block">
+                                    <span class="bs5-fw-bold">Numéro de Carte: </span> {data.fullUser.userCard.cardID}
+                                  </span>
+                                  <span class="bs5-d-block">
+                                    <span class="bs5-fw-bold">Statut: </span> 
+                                    {#if data.fullUser.userCard.isActivated}
+                                        <Badge color="green">Active</Badge>
+                                    {:else}
+                                        <Badge color="red">désactivée</Badge>
+                                    {/if}
+                                  </span>
+                                  <span class="bs5-d-block">
+                                    <span class="bs5-fw-bold">Délivrée le: </span> { new Date(data.fullUser.userCard.creationDate).toLocaleDateString('fr-FR') }
+                                  </span>
+
+                                  <div class="bs5-mt-3">
+                                    <Button color="dark" size="xs">
+                                        Bloquer
+                                    </Button>
+                                  </div>
+                                </div>
+                            </div>
                         </h5>
-                        <div class="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight ms-2">
-                            <p class="mb-2">
-                                reverse chronological order.
-                            </p>
-                        </div>
                     </Card>
                 {:else if data.fullUser.cardRequest.requestStatus == 'rejected'}
                     <Alert color="red">
@@ -92,7 +112,7 @@
                     <div slot="extra">
                         <div class="mt-2 mb-4 text-sm"> Vous n'avez fait aucune demande de carte.</div>
                         <div class="">
-                            <Button  on:click={makeCardRequest} size="lg" color="dark" class="bs5-rounded-0">
+                            <Button  on:click={() => { makeCardRequest(); }} size="lg" color="dark" class="bs5-rounded-0">
                                 Faire une demande Maintenant
                             </Button>
                         </div>
@@ -103,23 +123,28 @@
     </div>
 </div>
 
-<div class="bs5-row">
-    <div class="bs5-col bs5-mt-5">
-        <center>
-            Short list of transactions
-        </center>
+<hr class="bs5-my-3">
 
-        {#if data.last15Transactions}
-            Theses are { data.last15Transactions.length } Transaction
-            <ul>
-                {#each data.last15Transactions as transact}
-                    <li>{transact.hash} - {transact.id}</li>
+<div class="bs5-row">
+    <div class="bs5-col">
+        <center>
+           <div class="text-yellow-700" style="font-size: 25px;">
+                15 Dernières Transactions
+           </div>
+            
+            <div>
+                {#if data.last15Transactions}
+                    <ul>
+                        {#each data.last15Transactions as transact}
+                            <li>{transact.hash} - {transact.id}</li>
+                        {:else}
+                            Aucune Transaction effectuée
+                        {/each}
+                    </ul>
                 {:else}
-                    No transaction available
-                {/each}
-            </ul>
-        {:else}
-            No transaction available
-        {/if}
+                    <span>Aucune Transaction Effectuée</span>
+            {/if}
+            </div>
+        </center>
     </div>
 </div>

@@ -8,15 +8,9 @@ export class PassCard {
 
     @PrimaryGeneratedColumn()
     id!: number;
-    
-    @Column('varchar', { default: '' })
-    name!: string;
 
     @Column('varchar', { default: '' })
     cardID!: string;
-
-    @Column('double', { default: 0 })
-    cardBalance!: number
 
     @Column('double', { default: 0 })
     creationDate!: number

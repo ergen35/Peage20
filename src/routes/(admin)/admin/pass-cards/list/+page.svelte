@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { PageData } from "./$types";
-    import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Indicator } from 'flowbite-svelte';
+    import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Badge } from 'flowbite-svelte';
 
     export let data: PageData;
 </script>
@@ -19,20 +19,20 @@
             <TableHeadCell>Usages</TableHeadCell>
             <TableHeadCell>Propriétaire</TableHeadCell>
         </TableHead>
-        <TableBody class="divide-y">
+        <TableBody tableBodyClass="divide-y">
             {#each data.allCards as card}
                 <TableBodyRow>
                     <TableBodyCell>{ card.cardID }</TableBodyCell>
-                    <TableBodyCell>{ new Date(card.creationDate).getDate() }</TableBodyCell>
+                    <TableBodyCell>{ new Date(card.creationDate).toLocaleDateString("fr-FR") }</TableBodyCell>
                     <TableBodyCell>
                         {#if card.isActivated }
-                            <Indicator color="green"/>
+                            <Badge color="green">active</Badge>
                         {:else}
-                            <Indicator color="red"/>
+                            <Badge color="red">inactive</Badge>
                         {/if}
                     </TableBodyCell>
                     <TableBodyCell>{ card.usageRecords.length }</TableBodyCell>
-                    <TableBodyCell>{`${card.cardOwner.fisrtName} ${card.cardOwner.lastName} `}</TableBodyCell>
+                    <TableBodyCell>{`${card.cardOwner.firstName} ${card.cardOwner.lastName} `}</TableBodyCell>
                 </TableBodyRow>
             {:else}
                 <div class="text-center">
