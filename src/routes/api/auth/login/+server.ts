@@ -1,6 +1,7 @@
 import { OCrypto } from '$lib/OCrypto';
 import { AppDataSource, AppUserSession, User } from '$lib/data-sources';
 import { error } from '@sveltejs/kit';
+import { compareSync } from "bcrypt";
 import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';
 
@@ -23,28 +24,16 @@ export const POST: RequestHandler = async function({ request }) {
         throw error(404, new Error('user is not registered'))
     }
 
-    //TODO: compute password hash with salt from user object
-    const salt = OCrypto.convertFromBase64ToAscii(user.extraSecret);
-    const computedHash = OCrypto.computeHash(body.password, Buffer.from(salt))
+    //compute password hash with salt from user object
+    const compareResult = compareSync(body.password, user.passwordHash)
 
-    //compare password hashes
-    // console.log("existing hash: " +  user.passwordHash)   
-    // console.log("calculated hash: " +  computedHash)   
-
-    const compareResult = OCrypto.verifyPassword(body.password, user.passwordHash, salt);
-    console.log("Password comparison result: " + compareResult)
-    
-    if(!(user.passwordHash == computedHash))
-    {
+    if(!compareResult)
         throw error(400, "incorrect password");
-    }
 
     //create session
     const sessionsRepos = AppDataSource.getRepository(AppUserSession)
     if(user.session)
-    {
         await sessionsRepos.remove(user.session)
-    }
 
     let session = new AppUserSession()
     session.user = user

@@ -1,5 +1,5 @@
 import { pbkdf2Sync, webcrypto } from "crypto";
-import { sign, verify, decode } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 export class OCrypto {
 

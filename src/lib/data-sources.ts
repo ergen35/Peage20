@@ -23,7 +23,8 @@ const AppDataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'peage20db',
-    synchronize: true,              //TODO: remove synchronize in production
+    synchronize: false,              //TODO: remove synchronize in production
+    dropSchema: false,
     entities: [CardRequest, PassAgent, PassCard, PassPoint, PassStation, TransactionOperation, UsageRecord, User, AppUserSession, AppSettings],
     migrations: [],
     logging: true,
