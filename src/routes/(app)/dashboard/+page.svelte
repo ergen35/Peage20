@@ -22,9 +22,14 @@
             const { ticket } = await response.json()
             data.fullUser!.cardRequest.requestStatus = 'pending';
             data.fullUser!.cardRequest.requestTicket = ticket;
+           
+            window.location = window.location
+        }
+        else
+        {
+            alert("Demande non enregistrée, veuillez réessayer")
         }
 
-        (window as Window).location = "/dashboard"
     }
 </script>
 
@@ -54,7 +59,7 @@
                         <div slot="extra" class="">
                             <div class="mt-2 mb-4 text-sm">Votre demande de carte à été rejetée.</div>
                             <div class="">
-                                <Button on:click={makeCardRequest} size="xs" outline color="blue" class="bs5-rounded-0">
+                                <Button on:click={() => { makeCardRequest(); }} size="xs" outline color="blue" class="bs5-rounded-0">
                                     Faire une demande
                                 </Button>
                             </div>
@@ -79,15 +84,15 @@
                     </Alert>
                 {/if}
             {:else}
-                <Alert color="white" class="bg-gray-300">
+                <Alert color="white" class="bg-yellow-100">
                     <span slot="icon">
                         <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>
                     </span>
-                    <span class="text-lg font-medium bs5-text-primary">Statut Ticket: N/A</span>
+                    <span class="text-lg font-medium bs5-text-black">Statut Ticket: N/A</span>
                     <div slot="extra">
                         <div class="mt-2 mb-4 text-sm"> Vous n'avez fait aucune demande de carte.</div>
                         <div class="">
-                            <Button  on:click={makeCardRequest} size="lg" outline color="blue" class="bs5-rounded-0">
+                            <Button  on:click={makeCardRequest} size="lg" color="dark" class="bs5-rounded-0">
                                 Faire une demande Maintenant
                             </Button>
                         </div>
