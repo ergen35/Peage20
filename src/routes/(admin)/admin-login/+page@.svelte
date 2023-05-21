@@ -3,3 +3,7 @@
 
     export let data: PageData;
 </script>
+
+<div>
+    Admin Login Page
+</div>

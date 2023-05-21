@@ -24,7 +24,7 @@
             data.fullUser!.cardRequest.requestTicket = ticket;
         }
 
-        window.location = window.location
+        (window as Window).location = "/dashboard"
     }
 </script>
 
@@ -65,7 +65,9 @@
                         <span slot="icon">
                             <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>
                         </span>
-                        <span class="text-lg font-medium">Statut Ticket: #{data.fullUser.cardRequest.requestTicket}</span>
+                        <span class="text-lg font-medium">
+                                Statut Ticket: #<span class="bs5-text-danger">{data.fullUser.cardRequest.requestTicket.toUpperCase()}</span> 
+                        </span>
                         <div slot="extra" class="">
                             <div class="mt-2 mb-4 text-sm">Votre demande de carte est en cours de traitement, veillez patienter.</div>
                             <div class="">

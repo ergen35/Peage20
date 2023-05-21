@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Button, Input, Label } from 'flowbite-svelte';
+    import { Button, Input, Label, Spinner } from 'flowbite-svelte';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -9,12 +9,18 @@
 
     export let hasErrorsOnUsername = false;
     export let hasErrorsOnPassword = false;
+    export let isLoging = false;
 
     let usernameInputColor: "base" | "red" | "green" | undefined = "base";
     let pwdInputColor: "base" | "red" | "green" | undefined = "base";
 
     function logIn(){
-        if(!(password && username)) return;
+        isLoging = true;
+        if(!(password && username))
+        {
+            isLoging = false;
+            return;
+        }
         dispatch('loginsubmit', { username, password })
     }
 
@@ -54,7 +60,11 @@
             </Label>
 
             <Button type="submit" color="purple" class="bs5-mt-5 bs5-w-50 bs5-shadow-lg" size="lg">
-                <span class="fas fa-shield-alt bs5-me-2"></span> Connexion
+                {#if isLoging}
+                    <Spinner color="yellow" />
+                {:else}
+                    <span class="fas fa-shield-alt bs5-me-2"></span> Connexion
+                {/if}
             </Button>
         </form>
         <hr class="mt-3">

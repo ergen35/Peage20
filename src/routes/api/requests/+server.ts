@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 import { AppDataSource, User, CardRequest } from '$lib/data-sources';
 import { error, json } from '@sveltejs/kit';
-
+import { randomUUID } from 'crypto';
 
 export const POST: RequestHandler = async ({ request }) => {
     const  { username } = await request.json();
@@ -23,8 +23,9 @@ export const POST: RequestHandler = async ({ request }) => {
     let c_request = new CardRequest();
     c_request.requestDate = Date.now();
     c_request.requestMaker = user;
+
     c_request.requestStatus = 'pending'
-    c_request.requestTicket = Math.random().toString(); //TODO: generate a truncated UUID fro ticket
+    c_request.requestTicket = randomUUID().split('-')[0]
 
     c_request = await cardReqRepos.save(c_request);
 

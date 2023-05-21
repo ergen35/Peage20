@@ -3,26 +3,6 @@
     import { Card, Button } from 'flowbite-svelte';
     import { onMount } from "svelte";
 
-
-    //TODO: Install ChartJs as npm package
-    // onMount(() => {
-    //     var barChartData = {
-    //         labels : ["Jan","Feb","Mar","Apr","May","Jun","jul"],
-    //         datasets : [
-    //             {
-    //                 fillColor : "#FC8213",
-    //                 data : [65,59,90,81,56,55,40]
-    //             },
-    //             {
-    //                 fillColor : "#337AB7",
-    //                 data : [28,48,40,19,96,27,100]
-    //             }
-    //         ]
-
-    //     };
-    //     new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-    // })
-
     export let data: PageData;
 </script>
 
@@ -52,7 +32,7 @@
                     <p style="font-size: 13px;">{ data.cardsCount } actives(s)</p>
                 </div>
                 <div class="bs5-col-4 text-center bs5-my-auto bs5-bg-white p-2 bs5-rounded-circle" style="height:90px; width: 90px;">
-                    <i class="fas fa-id-card fa-3x text-indigo-800 mt-2"> </i>
+                    <i class="fas fa-id-card-alt fa-3x text-indigo-800 mt-2"> </i>
                 </div>
             </div>
         </Card>
@@ -64,7 +44,7 @@
                 <div class="bs5-col-8">
                     <h3 class="bs5-fs-1">{ data.requestsCount }</h3>
                     <h4 class="bs5-fs-4">Demandes</h4>
-                    <p style="font-size: 13px;">2 ren.  |  6 nouv</p>
+                    <p style="font-size: 13px;" class="text-transparent">2 ren.  |  6 nouv</p>
                 </div>
                 <div class="bs5-col-4 text-center bs5-my-auto bs5-bg-white p-2 bs5-rounded-circle" style="height:90px; width: 90px;">
                     <i class="fas fa-list-alt fa-3x text-yellow-800 mt-2"> </i>
@@ -158,9 +138,13 @@
 <div class="bs5-row">
     <div class="bs5-col-12">
        <div class="text-center bs5-mt-2">
-            <Button color="dark" size="lg" outline class="bs5-rounded-2"> 
+            <Button color="dark" size="sm" outline class="bs5-rounded-2"> 
+                <span class="fas fa-sync me-2 fa-2x"></span>
+                <span class="bs5-fs-4">Actualiser</span>
+            </Button> |
+            <Button color="dark" size="sm" outline class="bs5-rounded-2"> 
                 <span class="fas fa-chart-bar me-2 fa-2x"></span>
-                <span class="bs5-fs-4">Voir toutes les Stats.</span>
+                <span class="bs5-fs-4">Toutes les Stats.</span>
             </Button>
        </div>
     </div>
