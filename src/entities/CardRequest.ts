@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { Entity, Column, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
 
@@ -5,8 +7,8 @@ import { User } from "./User";
 @Entity()
 export class CardRequest{
 
-    @PrimaryGeneratedColumn('uuid')
-    id!: string
+    @PrimaryGeneratedColumn()
+    id!: number
 
     @OneToOne(() => User, u => u.cardRequest)
     @JoinColumn()

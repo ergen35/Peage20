@@ -1,5 +1,5 @@
 import { pbkdf2Sync, webcrypto } from "crypto";
-import { sign, verify, decode } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 export class OCrypto {
 
@@ -10,10 +10,13 @@ export class OCrypto {
         return OCrypto.convertToBase64String(hash);
     }
 
-    // static verifyPassword(password: string, saltStr: string){
-    //     const salt = Buffer.from(saltStr);
-    //     const hash = pbkdf2Sync(password, salt, 10000, 128, 'sha1');
-    // }
+    static verifyPassword(newPassword: string, oldPasswordHash: string, saltStr: string){
+        const salt = Buffer.from(saltStr);
+        const hash = pbkdf2Sync(newPassword, salt, 10000, 128, 'sha1');
+        const hashStr = OCrypto.convertToBase64String(hash)
+        
+        return hashStr == oldPasswordHash;
+    }
 
     static generateSalt() {
         return webcrypto.getRandomValues(new Uint16Array(16))

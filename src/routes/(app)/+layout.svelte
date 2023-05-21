@@ -36,24 +36,24 @@
         <div class="bs5-col-sm-auto bs5-bg-light bs5-sticky-top bs5-d-none bs5-d-md-block">
             <div class="bs5-d-flex bs5-flex-sm-column bs5-flex-row bs5-flex-nowrap bs5-bg-light bs5-align-items-center bs5-sticky-top">
                 <Sidebar>
-                  <SidebarWrapper divClass='overflow-y-auto py-4 px-3 rounded dark:bg-gray-800'>
+                  <SidebarWrapper divClass='overflow-y-auto py-4 px-3 rounded'>
                     <SidebarGroup>
                       <SidebarItem label="Tableau de Bord" href="/dashboard">
                         <svelte:fragment slot="icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>
                         </svelte:fragment>
                       </SidebarItem>
                      <SidebarDropdownWrapper label="Mon Compte">
                         <svelte:fragment slot="icon">
-                          <span class="far fa-user fa-fw bs5-fs-5"></span>
+                          <span class="far fa-user fa-fw bs5-text-primary bs5-fs-5"></span>
                         </svelte:fragment>
                         <SidebarDropdownItem label="Infos." href="/my-account" />
-                        <SidebarDropdownItem label="Vérification" href="/my-account/kyc"/>
+                        <!-- <SidebarDropdownItem label="Vérification" href="/my-account/kyc"/> -->
                       </SidebarDropdownWrapper>
                       
                       <SidebarItem label="Transactions" href="/transactions">
                         <svelte:fragment slot="icon">
-                          <span class="far fa-chart-bar fa-fw bs5-fs-5"></span>
+                          <span class="far fa-chart-bar fa-fw bs5-fs-5 bs5-text-warning"></span>
                         </svelte:fragment>
                       </SidebarItem>
 
@@ -68,7 +68,7 @@
 
                       <SidebarItem label="Déconnexion" href="/account/logout">
                         <svelte:fragment slot="icon">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
                         </svelte:fragment>
                       </SidebarItem>
 
@@ -82,7 +82,7 @@
         <div class="bs5-col-sm bs5-p-3 bs5-min-vh-100">
           <div class="bs5-row">
               <div class="bs5-col bs5-text-end mb-4">
-                   {#if data.user}
+                   {#if data.user && data.user.accountActivated}
                       <Button rounded={0} color="dark" shadow="lime" href="/dashboard">
                         <span>XOF &nbsp;{data.user.accountBalance}</span>
                         <Badge rounded class="w-4 h-4 ml-2 !p-0 !font-semibold bg-green-700 dark:text-blue-800 dark:bg-blue-200">
@@ -92,8 +92,9 @@
                    {/if}
               </div>
           </div>
-          <div class="bs5-row">
-            <slot></slot>
+          
+          <div class="">
+            <slot />
           </div>
 
           <div class="bs5-d-md-block bs5-d-md-none">

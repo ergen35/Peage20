@@ -1,6 +1,5 @@
 import type { PageServerLoad } from './$types';
 import  { AppDataSource, User, TransactionOperation } from '$lib/data-sources';
-import { redirect } from '@sveltejs/kit';
 
 export const load = (async ({ locals }) => {
 

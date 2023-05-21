@@ -6,7 +6,11 @@ export const load = (async () => {
     const appu = new AppUserInfos()
     appu.userType = 'super-admin'
 
-    const c_requestsCount = AppDataSource.manager.count(CardRequest);
+    const c_requestsCount = AppDataSource.manager.count(CardRequest, {
+        where: {
+            requestStatus: "pending"
+        }
+    });
 
     return {
         user: structuredClone(appu),

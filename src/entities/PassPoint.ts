@@ -2,24 +2,23 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "ty
 import { UsageRecord } from "./UsageRecord";
 import { PassStation } from "./PassStation";
 
-
 @Entity()
 export class PassPoint {
 
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn("uuid")
     id!: string;
 
-    @Column('text', { default: '' })
+    @Column('text')
     name!: string;
 
     @Column('text')
-    passDirection!: string
+    passDirection: 'going' | 'returning' = 'going'
 
     @Column('text', { default: '' })
-    geoAddress!: string;
+    geoAddress?: string;
 
     @OneToMany(() => UsageRecord, u => u.passPoint)
-    usageRecords!: UsageRecord[];
+    usageRecords?: UsageRecord[];
 
     @ManyToOne(() => PassStation, ps => ps.passPoints)
     passStation!: PassStation
