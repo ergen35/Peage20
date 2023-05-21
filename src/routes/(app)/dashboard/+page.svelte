@@ -59,8 +59,8 @@
                         <div slot="extra" class="">
                             <div class="mt-2 mb-4 text-sm">Votre demande de carte à été rejetée.</div>
                             <div class="">
-                                <Button on:click={() => { makeCardRequest(); }} size="xs" outline color="blue" class="bs5-rounded-0">
-                                    Faire une demande
+                                <Button on:click={() => { makeCardRequest(); }} size="md" outline color="blue" class="bs5-rounded-0">
+                                    Refaire une demande
                                 </Button>
                             </div>
                         </div>
