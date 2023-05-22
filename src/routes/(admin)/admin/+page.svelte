@@ -57,7 +57,7 @@
 <div class="bs5-row">
 
     <div class="bs5-col-2">
-        <Card size="sm" color="green" padding="none" class="bs5-rounded-2">
+        <Card size="sm" href="/admin/pass-stations" color="green" padding="none" class="bs5-rounded-2">
             <div class="text-center">
                 <span class="bs5-d-block bs5-fs-2">{data.stationsCount}</span>
                 <span class="bs5-d-block">

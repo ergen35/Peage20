@@ -14,7 +14,7 @@
                 min(9999).integer()
     });
 
-    async function rejectCardRequest(requestId: string)
+    async function rejectCardRequest(requestId: number)
     {
         const response = await fetch(`/api/requests/reject?requestId=${requestId}`, {
             method: "POST"
@@ -24,7 +24,7 @@
           window.location = window.location
     }
 
-    async function acceptCardRequest(requestId: string)
+    async function acceptCardRequest(requestId: number)
     {
        if(!cardId)
         alert("Veillez fournir le numéro de la carte")

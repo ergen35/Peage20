@@ -5,7 +5,7 @@
 
     export let data: PageData;
 
-    async function rejectCardRequest(requestId: string)
+    async function rejectCardRequest(requestId: number)
     {
         const response = await fetch(`/api/requests/reject?requestId=${requestId}`, {
             method: "POST"

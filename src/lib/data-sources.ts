@@ -10,7 +10,6 @@ import { PassStation } from '../entities/PassStation';
 import { TransactionOperation } from "../entities/TransactionOperation";
 import { UsageRecord } from "../entities/UsageRecord";
 import { User } from "../entities/User";
-import { createConnection as createMySqlConnection } from 'mysql';
 
 import { DataSource } from 'typeorm';
 
@@ -22,11 +21,11 @@ const AppDataSource = new DataSource({
     username: 'root',
     password: '',
     database: 'peage20db',
-    synchronize: true,              //TODO: remove synchronize in production
-    dropSchema: true,
+    synchronize: false,              //TODO: remove synchronize in production
+    dropSchema: false,
     entities: [CardRequest, PassAgent, PassCard, PassPoint, PassStation, TransactionOperation, UsageRecord, User, AppUserSession, AppSettings],
     migrations: [],
-    logging: true,
+    logging: false,
     subscribers: []
 })
 

@@ -43,10 +43,10 @@ function createDatabaseIfNotExists(dataSource: DataSource) {
 await createDatabaseIfNotExists(AppDataSource);
 
 //introduce a 5000ms wait before working on the newly created database
-console.log("Starting 5000ms wait.")
+console.log("Starting 2500ms wait.")
 const execDelay = new Promise((resolve) => {
     setTimeout(() => {
-        console.log("5000ms wait ended.")
+        console.log("2500ms wait ended.")
         resolve(0)
     }, 2500)
 })

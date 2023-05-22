@@ -112,7 +112,7 @@
                     <div slot="extra">
                         <div class="mt-2 mb-4 text-sm"> Vous n'avez fait aucune demande de carte.</div>
                         <div class="">
-                            <Button on:click={() => { makeCardRequest(); }} size="lg" color="dark" class="bs5-rounded-0">
+                            <Button on:click={() => makeCardRequest()} size="lg" color="dark" class="bs5-rounded-0">
                                 Faire une demande Maintenant
                             </Button>
                         </div>
