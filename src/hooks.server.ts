@@ -106,7 +106,5 @@ export const handle: Handle = async function ({ event, resolve }) {
         event.locals.user = null;
     }
 
-    console.log("Done beforehand")
-
     return resolve(event);
 }

@@ -75,11 +75,18 @@
 </script>
 
 <div class="bs5-row">
-    <div class="bs5-offset-10 bs5-col-2 bs5-text-end">
+    <div class="bs5-col-10 bs5-text-center">
+        <span style="font-size: 35px;" class="bs5-fw-bold">
+            <span class="fas fa-compass bs5-me-2"></span> Stations
+        </span>
+    </div>
+    <div class="bs5-col-2 bs5-text-end">
         <Button color="dark" on:click={() => { addStationModalOpened = true }}>
             <span class="fas fa-plus-square bs5-me-2"></span> Ajouter
         </Button>
     </div>
+
+    <hr class="bs5-mb-3 bs5-mt-2">
 </div>
 
 <div class="bs5-row">

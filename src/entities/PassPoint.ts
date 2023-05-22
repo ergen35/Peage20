@@ -15,7 +15,7 @@ export class PassPoint {
     passDirection: 'going' | 'returning' = 'going'
 
     @Column('text', { default: '' })
-    geoAddress!: string;
+    geoAddress?: string;
 
     @OneToMany(() => UsageRecord, u => u.passPoint)
     usageRecords?: UsageRecord[];
