@@ -46,6 +46,9 @@
 </div>
 
 <div class="bs5-row mx-2">
+    <!-- {#each items as item,(key)} -->
+         <!-- content here -->
+    <!-- {/each} -->
     <TableSearch placeholder="rechercher par nom, prénoms, tél. ou numéro carte" bind:inputValue={searchInput} hoverable shadow>
         <TableHead>
             <TableHeadCell>Nom & Prénoms</TableHeadCell>

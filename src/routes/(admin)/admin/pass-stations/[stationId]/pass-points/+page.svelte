@@ -87,7 +87,11 @@
 <div class="bs5-row">
     <div class="bs5-col-10 bs5-text-center">
         <span style="font-size: 25px;" class="bs5-fw-bold bs5-text-wrap">
+<<<<<<< HEAD
             <span class="fas fa-compass bs5-me-2"></span> Point de passages ({data.station.name})
+=======
+            <span class="fas fa-compass bs5-me-2"></span> Point de passages (Station {data.station.name})
+>>>>>>> b7555aac029080a94fd76abe1841cfb7ba5998d3
         </span>
     </div>
     <div class="bs5-col-2 bs5-text-end">
