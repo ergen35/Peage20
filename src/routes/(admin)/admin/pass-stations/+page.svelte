@@ -94,12 +94,10 @@
         <div class="bs5-col-4 bs5-mt-3">
             <Card color="dark">
                 <div class="">
-<<<<<<< HEAD
-                    <b> Id:</b> {station.Id}
+                    <b> Id:</b> {station.id}
                  </div>
                 <div class="">
-=======
->>>>>>> b7555aac029080a94fd76abe1841cfb7ba5998d3
+
                    <b> Nom:</b> {station.name}
                 </div>
                 <div class="">
