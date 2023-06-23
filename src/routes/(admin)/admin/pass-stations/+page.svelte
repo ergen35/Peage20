@@ -72,6 +72,14 @@
             alert("La ressource n'a pas été supprimée, veuillez recommencer")
         }
     }
+
+    function copyToClipboard(ttc: string) 
+    {
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(ttc);
+        // Alert the copied text
+        alert("Copié");
+    }
 </script>
 
 <div class="bs5-row">
@@ -102,6 +110,9 @@
                 <div class="">
                     <b>Pts. de Passage:</b> {station.passPoints?.length}
                 </div>
+                <div class="mt-2 text-start">
+                    <Button on:click={() => copyToClipboard(station.id) } class="border-0" outline size="xs" > <span class="fas fa-clipboard me-2"></span> Copier l'Id</Button>
+                 </div>
                 <hr class="bs5-my-2">
                 <div class="bs5-d-flex bs5-justify-content-around">
                     <Button href="/admin/pass-stations/{station.id}/pass-points" color="dark" outline>Passages</Button>
