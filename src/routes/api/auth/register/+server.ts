@@ -27,7 +27,6 @@ export const POST: RequestHandler = async ({ request }) => {
     user.extraSecret = salt
     user.passwordHash = computedHash
     user.registrationDate = Date.now()
-    user.accountBalance = 1000;
 
     user = await usersRepos.save(user)
 

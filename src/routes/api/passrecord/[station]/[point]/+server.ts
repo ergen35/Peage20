@@ -15,7 +15,7 @@ export const POST: RequestHandler = async ({ params, url }) => {
         })
 
     if (!ps) {
-        throw error(404, "Station not found.");
+        throw error(404, "Station not found");
     }
 
 
@@ -52,7 +52,7 @@ export const POST: RequestHandler = async ({ params, url }) => {
     )
 
     if (!userCard) {
-        throw error(404, "Card not registered")
+        throw error(404, "Card not registerd")
     }
 
     if (!userCard.isActivated) {

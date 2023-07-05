@@ -1,5 +1,5 @@
 import { pbkdf2Sync, webcrypto } from "crypto";
-import * as jstn from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 
 export class OCrypto {
 
@@ -31,14 +31,14 @@ export class OCrypto {
     }
 
     static tokenizeObject(data: object | string | Buffer): string {
-        return jstn.sign(data, OCrypto.secret, { algorithm: "HS256", issuer: "peage20.srv", expiresIn: '1d', audience: 'peage20.website' })
+        return sign(data, OCrypto.secret, { algorithm: "HS256", issuer: "peage20.srv", expiresIn: '1d', audience: 'peage20.website' })
     }
 
     /** Decode a jwt token string and return the stringified payload.
      * JSON.parse() it if it's an object like structure 
      */
     static verifyAnddecodeJwtToken(token: string): string {
-        const decodedJwt = jstn.verify(token, OCrypto.secret, { issuer: "peage20.srv", audience: 'peage20.website' })
+        const decodedJwt = verify(token, OCrypto.secret, { issuer: "peage20.srv", audience: 'peage20.website' })
         return JSON.stringify(decodedJwt);
     }
 }

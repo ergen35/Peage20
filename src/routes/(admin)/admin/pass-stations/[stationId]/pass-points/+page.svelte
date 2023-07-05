@@ -82,20 +82,12 @@
             alert("La ressource n'a pas été supprimée, veuillez recommencer")
         }
     }
-
-    function copyToClipboard(ttc: string) 
-    {
-        // Copy the text inside the text field
-        navigator.clipboard.writeText(ttc);
-        // Alert the copied text
-        alert("Copié");
-    }
 </script>
 
 <div class="bs5-row">
     <div class="bs5-col-10 bs5-text-center">
         <span style="font-size: 25px;" class="bs5-fw-bold bs5-text-wrap">
-            <span class="fas fa-compass bs5-me-2"></span> Point de passages ({data.station.name})
+            <span class="fas fa-compass bs5-me-2"></span> Point de passages (Station {data.station.name})
         </span>
     </div>
     <div class="bs5-col-2 bs5-text-end">
@@ -122,9 +114,6 @@
                          <Badge color="purple">Retour</Badge>
                     {/if}
                 </div>
-                <div class="mt-2 text-start">
-                    <Button on:click={() => copyToClipboard(passPoint.id) } class="border-0" outline size="xs" > <span class="fas fa-clipboard me-2"></span> Copier l'Id</Button>
-                 </div>
                 <hr class="bs5-my-2">
                 <div class="bs5-d-flex bs5-justify-content-around">
                     <Button on:click={ () => { deletePassPoint(passPoint.id) } } color="red" outline>Supprimer</Button>

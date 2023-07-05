@@ -48,7 +48,6 @@
 		"flowbite-svelte": "^0.34.9",
 		"joi": "^17.9.2",
 		"jsonwebtoken": "^9.0.0",
-		"kkiapay": "^2.0.18",
 		"mysql": "^2.18.1",
 		"reflect-metadata": "^0.1.13",
 		"sqlite": "^4.1.2",

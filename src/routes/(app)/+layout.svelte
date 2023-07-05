@@ -5,7 +5,6 @@
     import { onMount } from 'svelte';
     import { showIdWarnModal } from '../../app-store';
     import { IdWarnModal } from '$lib/components';
-    // import { openKkiapayWidget, addKkiapayListener, removeKkiapayListener } from "kkiapay";
 
     export let data: LayoutData;
 
@@ -28,11 +27,6 @@
         }
       }
     })
-
-    function logOutUser()
-    {
-      (window as Window).location = "/account/logout";
-    }
 </script>
 
 <div class="bs5-container-fluid">
@@ -72,7 +66,7 @@
                         </svelte:fragment>
                       </SidebarItem>
 
-                      <SidebarItem label="Déconnexion" on:click={() => logOutUser() }>
+                      <SidebarItem label="Déconnexion" href="/account/logout">
                         <svelte:fragment slot="icon">
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" /></svg>
                         </svelte:fragment>
@@ -89,7 +83,7 @@
           <div class="bs5-row">
               <div class="bs5-col bs5-text-end mb-4">
                    {#if data.user && data.user.accountActivated}
-                      <Button rounded={0} color="dark" shadow="lime" on:click={() => goto("/payments")} >
+                      <Button rounded={0} color="dark" shadow="lime" href="/dashboard">
                         <span>XOF &nbsp;{data.user.accountBalance}</span>
                         <Badge rounded class="w-4 h-4 ml-2 !p-0 !font-semibold bg-green-700 dark:text-blue-800 dark:bg-blue-200">
                             <span class="fas fa-plus text-white" />
