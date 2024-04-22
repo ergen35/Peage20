@@ -13,7 +13,7 @@ export class PassStation{
     @Column('text', { default: '' })
     name?: string
 
-    @Column('double', { default: 0.0 })
+    @Column('double precision',{ default: 0.0 })
     price!: number
 
     @OneToMany(() => PassPoint, pp => pp.passStation)

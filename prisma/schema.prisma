@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AppSettings {
+  id Int @id @default(autoincrement())
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  firstName        String
+  lastName         String
+  phoneNumber      String   @unique
+  passwordHash     String
+  extraSecret      String
+  accountBalance   Float
+  registrationDate DateTime
+  address          String
+  accountActived   Boolean  @default(false)
+  lastAccessDate   DateTime
+
+  userCard         PassCard?
+  session          AppUserSession?
+  userTransactions TransactionOperation[]
+  cardRequest      CardRequest?
+}
+
+model AppUserSession {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
+  hash   String @unique
+}
+
+model CardRequest {
+  id             Int      @id @default(autoincrement())
+  requestMaker   User     @relation(fields: [requestMakerId], references: [id])
+  requestMakerId Int      @unique
+  requestDate    DateTime
+  requestStatus  OpStatus @default(NoStatus)
+  requestTicket  String   @unique
+}
+
+model TransactionOperation {
+  id                 Int      @id @default(autoincrement())
+  transactionId      String
+  hash               String
+  initiatedOn        DateTime
+  amount             Float
+  transactionActor   User     @relation(fields: [transactionActorId], references: [id])
+  transactionActorId Int
+  status             OpStatus @default(NoStatus)
+}
+
+model PassStation {
+  id         String      @id @default(uuid())
+  name       String
+  price      Float
+  passPoints PassPoint[]
+}
+
+model PassPoint {
+  id            String        @id @default(uuid())
+  name          String
+  passDirection PassDirection @default(Going)
+  usageRecords  UsageRecord[]
+  passStation   PassStation   @relation(fields: [passStationId], references: [id])
+  passStationId String
+}
+
+model UsageRecord {
+  id          Int       @id @default(autoincrement())
+  usageDate   DateTime
+  paidAmount  Float     @default(0.0)
+  passPoint   PassPoint @relation(fields: [passPointId], references: [id])
+  passPointId String
+  passCard    PassCard  @relation(fields: [passCardId], references: [id])
+  passCardId  Int
+}
+
+model PassCard {
+  id           Int           @id @default(autoincrement())
+  cardID       String        @unique
+  creationDate DateTime
+  isActivated  Boolean       @default(false)
+  cardOwner    User          @relation(fields: [cardOwnerId], references: [id])
+  cardOwnerId  Int           @unique
+  usageRecords UsageRecord[]
+}
+
+model PassAgent {
+  id             Int      @id @default(autoincrement())
+  name           String
+  isAdmin        Boolean  @default(false)
+  lastAccessDate DateTime
+  passwordHash   String
+  username       String   @unique
+  phoneNumber    String   @unique
+  registeredBy   String
+}
+
+enum PassDirection {
+  Going
+  Returning
+}
+
+enum OpStatus {
+  NoStatus
+  Pending
+  Rejected
+  Accepted
+}

@@ -14,8 +14,8 @@ export class CardRequest{
     @JoinColumn()
     requestMaker!: User
     
-    @Column('double')
-    requestDate!: number
+    @Column('timestamp')
+    requestDate!: Date
 
     @Column('varchar')
     requestStatus: 'no-status' | 'pending' | 'rejected' | 'accepted' = 'no-status';

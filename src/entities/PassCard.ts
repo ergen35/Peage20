@@ -12,7 +12,7 @@ export class PassCard {
     @Column('varchar', { default: '' })
     cardID!: string;
 
-    @Column('double', { default: 0 })
+    @Column('timestamp')
     creationDate!: number
 
     @Column('bool', { default: false })

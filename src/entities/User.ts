@@ -25,11 +25,11 @@ export class User {
     @Column('text', { default: '' })
     extraSecret!: string;
 
-    @Column('double', { default: 0.0 })
+    @Column('double precision', { default: 0.0 })
     accountBalance!: number;
 
-    @Column('double', { default: 0 })
-    registrationDate!: number
+    @Column('timestamp')
+    registrationDate!: Date
 
     @Column('text', { default: '' })
     address!: string;
@@ -37,8 +37,8 @@ export class User {
     @Column('bool', { default: false })
     accountActivated = false
 
-    @Column('double', { default: 0 })
-    lastAccessDate!: number;
+    @Column('timestamp')
+    lastAccessDate!: Date;
 
     @OneToOne(() => PassCard, pc => pc.cardOwner, { cascade: true })
     userCard!: PassCard

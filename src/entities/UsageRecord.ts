@@ -9,10 +9,10 @@ export class UsageRecord {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column('double', { default: 0 })
-    usageDate!: number
+    @Column('timestamp')
+    usageDate!: Date
 
-    @Column('double', { default: 0.0 })
+    @Column('double precision', { default: 0.0 })
     paidAmount!: number
 
     @ManyToOne(() => PassPoint, pp => pp.usageRecords)

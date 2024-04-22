@@ -15,13 +15,13 @@ import { DataSource } from 'typeorm';
 
 
 const AppDataSource = new DataSource({
-    type: 'mysql',
+    type: 'postgres',
     host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '',
+    port: 5432,
+    username: 'averymkv3',
+    password: 'averymkv3',
     database: 'peage20db',
-    synchronize: false,              //TODO: remove synchronize in production
+    synchronize: true,
     dropSchema: false,
     entities: [CardRequest, PassAgent, PassCard, PassPoint, PassStation, TransactionOperation, UsageRecord, User, AppUserSession, AppSettings],
     migrations: [],

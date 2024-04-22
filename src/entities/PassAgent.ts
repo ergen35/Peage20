@@ -13,8 +13,8 @@ export class PassAgent{
     @Column('boolean')
     isAdmin = false;
 
-    @Column('double', { default: 0 })
-    lastAccessDate!: number 
+    @Column('timestamp')
+    lastAccessDate!: Date
 
     @Column('text')
     passwordHash!: string
