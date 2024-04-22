@@ -1,20 +1,20 @@
-import { AppDataSource, User } from '$lib/data-sources';
+import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
 
 export const load = (async ({ parent }) => {
-    
-    const usersRepos = AppDataSource.getRepository(User);
-    const allUsers = await usersRepos.find({
-        relations: {
+
+    const allUsers = await prisma.user.findMany({
+        include: {
             cardRequest: true,
-            userCard: true,
+            userCard: true
         }
     })
+
     const { user } = await parent();
-    
+
     return {
-        user, 
+        user,
         allUsers: structuredClone(allUsers)
     };
 }) satisfies PageServerLoad;

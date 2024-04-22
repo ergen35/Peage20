@@ -1,34 +1,37 @@
 import type { RequestHandler } from './$types';
-import { AppDataSource, PassStation, PassPoint } from '$lib/data-sources';
 import { error, json } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma';
 
 export const POST: RequestHandler = async ({ request, url }) => {
 
     const stationId = url.searchParams.get("stationId");
-    if(!stationId)
+    if (!stationId)
         throw error(400, "station not provided")
-    
-    const station = await AppDataSource.manager.findOneBy(PassStation, {
-        id: stationId
-    });
 
-    if(!station)
+    const station = await prisma.passStation.findFirst({
+        where: {
+            id: stationId
+        }
+    })
+
+    if (!station)
         throw error(404, "station not found")
 
     const { name, direction, geoAddress } = await request.json();
 
-    if(!name || !direction)
+    if (!name || !direction)
         throw error(400, "incorrect data")
-    
-    let pp = new PassPoint();
-    pp.name = name;
-    pp.geoAddress = geoAddress;
-    pp.passDirection = direction;
-    pp.passStation = station;
-    
-    pp = await AppDataSource.manager.save(pp); 
 
-    return json(pp, {
+    const passpoint = await prisma.passPoint.create({
+        data: {
+            name: name,
+            passDirection: direction,
+            passStationId: station.id,
+            geoAddress: geoAddress
+        }
+    })
+
+    return json(passpoint, {
         status: 202,
-    });    
+    });
 };

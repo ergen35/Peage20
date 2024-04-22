@@ -12,17 +12,17 @@ model AppSettings {
 }
 
 model User {
-  id               Int      @id @default(autoincrement())
+  id               Int       @id @default(autoincrement())
   firstName        String
   lastName         String
-  phoneNumber      String   @unique
+  phoneNumber      String    @unique
   passwordHash     String
   extraSecret      String
-  accountBalance   Float
+  accountBalance   Float     @default(0.0)
   registrationDate DateTime
-  address          String
-  accountActived   Boolean  @default(false)
-  lastAccessDate   DateTime
+  address          String?
+  accountActivated Boolean   @default(false)
+  lastAccessDate   DateTime?
 
   userCard         PassCard?
   session          AppUserSession?
@@ -68,8 +68,9 @@ model PassPoint {
   id            String        @id @default(uuid())
   name          String
   passDirection PassDirection @default(Going)
+  geoAddress    String?
   usageRecords  UsageRecord[]
-  passStation   PassStation   @relation(fields: [passStationId], references: [id])
+  passStation   PassStation   @relation(fields: [passStationId], references: [id], onDelete: Cascade)
   passStationId String
 }
 
@@ -79,8 +80,8 @@ model UsageRecord {
   paidAmount  Float     @default(0.0)
   passPoint   PassPoint @relation(fields: [passPointId], references: [id])
   passPointId String
-  passCard    PassCard  @relation(fields: [passCardId], references: [id])
-  passCardId  Int
+  passCard    PassCard  @relation(fields: [passCardId], references: [cardID])
+  passCardId  String
 }
 
 model PassCard {

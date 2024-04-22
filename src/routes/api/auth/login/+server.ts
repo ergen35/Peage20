@@ -1,23 +1,26 @@
 import { OCrypto } from '$lib/OCrypto';
-import { AppDataSource, AppUserSession, User } from '$lib/data-sources';
 import { error } from '@sveltejs/kit';
 import { compareSync } from "bcrypt";
 import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';
+import { prisma } from '$lib/server/prisma';
 
-export const POST: RequestHandler = async function({ request }) {
- 
+export const POST: RequestHandler = async function ({ request }) {
+
     const body = await request.json()
 
     //get user by phone number
-    const usersRepos = AppDataSource.getRepository(User)
-    const user = await usersRepos.findOne({ 
-        where: { 
-            phoneNumber: body.username 
+    const user = await prisma.user.findUnique({
+        where: {
+            phoneNumber: body.username
         },
-        relations: {
-            session: true
-        }
+        include: {
+            session: {
+                select: {
+                    id: true
+                }
+            }
+        },
     })
 
     if (!user) {
@@ -27,23 +30,21 @@ export const POST: RequestHandler = async function({ request }) {
     //compute password hash with salt from user object
     const compareResult = compareSync(body.password, user.passwordHash)
 
-    if(!compareResult)
+    if (!compareResult)
         throw error(400, "incorrect password");
 
+    //delete older session
+    if (user.session) {
+        await prisma.appUserSession.delete({ where: { id: user.session.id } })
+    }
+
     //create session
-    const sessionsRepos = AppDataSource.getRepository(AppUserSession)
-    if(user.session)
-        await sessionsRepos.remove(user.session)
-
-    let session = new AppUserSession()
-    session.user = user
-    session.hash = OCrypto.convertToBase64String(Buffer.from(user.phoneNumber))
-
-    session = await sessionsRepos.save(session);
-    
-    //link user & session
-    user.session = session;
-    await usersRepos.save(user);
+    const session = await prisma.appUserSession.create({
+        data: {
+            hash: OCrypto.convertToBase64String(Buffer.from(user.phoneNumber)),
+            userId: user.id,
+        }
+    })
 
     //return headers with auth in
     return new Response("successful registration!", {

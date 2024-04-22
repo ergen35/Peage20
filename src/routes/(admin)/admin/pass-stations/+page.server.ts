@@ -1,11 +1,12 @@
+import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
-import { AppDataSource, PassStation } from '$lib/data-sources';
+
 
 export const load = (async () => {
 
     //get all stations
-    const stations = await AppDataSource.manager.find(PassStation, {
-        relations: {
+    const stations = await prisma.passStation.findMany({
+        include: {
             passPoints: true
         }
     });

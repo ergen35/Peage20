@@ -1,30 +1,31 @@
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
-import { AppDataSource, PassStation } from '$lib/data-sources';
+import { prisma } from '$lib/server/prisma';
 
 export const DELETE: RequestHandler = async ({ url }) => {
-    
+
     const stationId = url.searchParams.get("stationId");
 
-    if(!stationId)
+    if (!stationId)
         throw error(400, "station Id not provided")
-    
-    const station = await AppDataSource.manager.findOne(PassStation, {
+
+    const station = await prisma.passStation.findFirst({
         where: {
             id: stationId
         },
-        relations: {
+        include: {
             passPoints: true
+        }
+    })
+
+    if (!station) throw error(404, "station not found")
+
+    await prisma.passStation.delete({
+        where: {
+            id: stationId
         }
     });
 
-    if(!station)
-        throw error(404, "station not found")
-    
-    await AppDataSource.manager.remove(station)
-    if(station.passPoints)
-        await AppDataSource.manager.remove(station.passPoints)
-    
     return json("done", {
         status: 200
     });

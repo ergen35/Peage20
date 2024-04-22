@@ -1,23 +1,23 @@
-import { AppDataSource, CardRequest } from '$lib/data-sources';
-import { error, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ params }) => {
     const requestId = params.requestId
-    
-    if(isNaN(Number(params.requestId)))
+
+    if (isNaN(Number(params.requestId)))
         throw redirect(302, "/admin/card-requests")
 
-    const request = await AppDataSource.manager.findOne(CardRequest, {
+    const request = await prisma.cardRequest.findFirst({
         where: {
             id: Number(requestId)
         },
-        relations: {
+        include: {
             requestMaker: true
         }
-    });
+    })
 
-    if(!request)
+    if (!request)
         throw redirect(302, "/admin/card-requests")
 
     return {

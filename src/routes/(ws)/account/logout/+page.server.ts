@@ -11,6 +11,8 @@ export const load = (async ({ locals, cookies }) => {
         sameSite: 'strict',
         expires: new Date(Date.now() - 35000)
     });
+
+    //TODO: May delete linked session
     
     throw redirect( 302, "/")
 }) satisfies PageServerLoad;

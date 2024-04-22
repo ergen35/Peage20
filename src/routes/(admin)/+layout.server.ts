@@ -1,4 +1,5 @@
-import { AppUserInfos, CardRequest, AppDataSource } from "$lib/data-sources";
+import { prisma } from '$lib/server/prisma';
+import { AppUserInfos } from '../../lib/models/AppUserInfos';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async () => {
@@ -6,14 +7,14 @@ export const load = (async () => {
     const appu = new AppUserInfos()
     appu.userType = 'super-admin'
 
-    const c_requestsCount = AppDataSource.manager.count(CardRequest, {
+    const count = await prisma.cardRequest.count({
         where: {
-            requestStatus: "pending"
+            requestStatus: "Pending"
         }
-    });
+    })
 
     return {
         user: structuredClone(appu),
-        reqCount: c_requestsCount
+        reqCount: count
     };
 }) satisfies LayoutServerLoad;

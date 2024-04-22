@@ -1,27 +1,38 @@
+import { prisma } from '$lib/server/prisma';
 import type { RequestHandler } from './$types';
 import { error } from '@sveltejs/kit';
 
-import { AppDataSource, CardRequest } from '$lib/data-sources'; 
 
 export const POST: RequestHandler = async ({ url }) => {
-    
+
     const requestId = url.searchParams.get("requestId");
-    if(!requestId)
+    if (!requestId)
         throw error(400, "bad request, request id not provided")
-    
-    if(isNaN(Number(requestId)))
+
+    if (isNaN(Number(requestId)))
         throw error(400, "invalid request")
 
     //find card
-    const cardRequest = await AppDataSource.manager.findOneBy(CardRequest, { id: Number(requestId) });
-    if(!cardRequest)
-        throw error(404, 'card request not found')
+    const cardRequest = await prisma.cardRequest.findFirst({
+        where: {
+            id: Number(requestId)
+        }
+    });
 
-    cardRequest.requestStatus = 'rejected';
-    await AppDataSource.manager.save(cardRequest);
+    if (!cardRequest) throw error(404, 'card request not found')
+
+    //update request status -> Rejected
+    await prisma.cardRequest.update({
+        where: {
+            id: Number(requestId)
+        },
+        data: {
+            requestStatus: 'Rejected'
+        }
+    })
 
     return new Response("card rejected",
-    {
-        status: 200
-    });
+        {
+            status: 200
+        });
 };

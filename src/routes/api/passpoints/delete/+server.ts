@@ -1,22 +1,21 @@
-import { AppDataSource, PassPoint } from '$lib/data-sources';
 import { error, json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import { prisma } from '$lib/server/prisma';
 
 export const DELETE: RequestHandler = async ({ url }) => {
 
-    const ppId = url.searchParams.get('ppId');
-    if(!ppId)
+    const id = url.searchParams.get('ppId');
+    if (!id)
         throw error(400, "passpoint id not found")
 
-    //find pp id
-    const pp = await AppDataSource.manager.findOneBy(PassPoint, {
-        id: ppId
-    });
+    const result = await prisma.passPoint.delete({
+        where: {
+            id: id
+        }
+    })
 
-    if(!pp)
+    if (!result)
         throw error(404, "Pass Point not found")
-
-    await AppDataSource.manager.remove(pp);
 
     return json("passpoint deleted", {
         status: 200

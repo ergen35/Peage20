@@ -1,19 +1,11 @@
 import { OCrypto } from "$lib/OCrypto";
-import { AppDataSource, AppUserInfos, AppUserSession } from "$lib/data-sources";
 import type { Handle } from "@sveltejs/kit";
+import { prisma } from "$lib/server/prisma";
+import { AppUserInfos } from "./lib/models/AppUserInfos";
 
-// initialize datasource for the 1st time
-if (!AppDataSource.isInitialized) {
-    await AppDataSource.initialize();
-}
-
-if (AppDataSource.isInitialized) {
-    console.log("App Data source is initialized and ready");
-}
+// await prisma.$connect();
 
 // {Nom de Domaine}/api/passrecord/{id station}/{id point de passage}?card=37AC490
-
-//Request handlers
 
 //handle
 export const handle: Handle = async function ({ event, resolve }) {
@@ -27,14 +19,20 @@ export const handle: Handle = async function ({ event, resolve }) {
         const sessionHash = JSON.parse(decodedToken).sessionId
 
         if (sessionHash) {
-            const sessionRepos = AppDataSource.getRepository(AppUserSession);
+
             //find session
-            const session = await sessionRepos.findOne({
-                relations: {
-                    user: true
-                },
+            const session = await prisma.appUserSession.findFirst({
                 where: {
                     hash: sessionHash
+                },
+                include: {
+                    user: {
+                        select: {
+                            accountActivated: true,
+                            accountBalance: true,
+                            phoneNumber: true
+                        }
+                    }
                 }
             });
 

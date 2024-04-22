@@ -1,23 +1,31 @@
 import type { PageServerLoad } from './$types';
-import  { AppDataSource, User, TransactionOperation } from '$lib/data-sources';
+import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ locals }) => {
 
-    const full_user = await AppDataSource.manager.findOne(User, {
+    const full_user = await prisma.user.findFirst({
         where: {
-            phoneNumber: locals.user!.username
+            phoneNumber: locals.user?.username
         },
-        relations: {
+        include: {
             userCard: true,
-            cardRequest: true,
+            cardRequest: true
         }
-    })
+    });
 
-    const last15Transactions = await AppDataSource.manager.find(TransactionOperation, {
+
+    const last15Transactions = await prisma.transactionOperation.findMany({
         where: {
-            transactionActor: full_user!
+            transactionActorId: full_user?.id
         },
-        loadRelationIds: true,
+        select: {
+            id: true,
+            amount: true,
+            transactionId: true,
+            hash: true,
+            initiatedOn: true,
+            status: true,
+        },
         take: 15
     });
 

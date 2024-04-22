@@ -20,8 +20,8 @@
 
         if(response.ok){
             const { ticket } = await response.json()
-            data.fullUser!.cardRequest.requestStatus = 'pending';
-            data.fullUser!.cardRequest.requestTicket = ticket;
+            data.fullUser!.cardRequest!.requestStatus = 'Pending';
+            data.fullUser!.cardRequest!.requestTicket = ticket;
            
             window.location = window.location
         }
@@ -38,7 +38,7 @@
     <div class="text-center">
         <div class="bs5-offset-lg-2 bs5-col-lg-8 bs5-offset-sm-1 bs5-col-sm-10 bs5-offset-md-2 bs5-col-lg-8">
             {#if data.fullUser?.cardRequest}
-                {#if data.fullUser.cardRequest.requestStatus === 'accepted' && data.fullUser.userCard != null}
+                {#if data.fullUser.cardRequest.requestStatus === 'Accepted' && data.fullUser.userCard != null}
                     <Card horizontal color="green" size='lg'>
                         <h5 class="mb-2 ">
                             <div class="bs5-row">
@@ -70,7 +70,7 @@
                             </div>
                         </h5>
                     </Card>
-                {:else if data.fullUser.cardRequest.requestStatus == 'rejected'}
+                {:else if data.fullUser.cardRequest.requestStatus == 'Rejected'}
                     <Alert color="red">
                         <span slot="icon">
                             <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                     </Alert>
-                {:else if data.fullUser.cardRequest.requestStatus == 'pending'}
+                {:else if data.fullUser.cardRequest.requestStatus == 'Pending'}
                     <Alert color="blue">
                         <span slot="icon">
                             <span class="fas fa-info-circle bs5-text-primary fa-2x"></span>

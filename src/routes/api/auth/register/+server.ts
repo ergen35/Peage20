@@ -1,17 +1,20 @@
 import { OCrypto } from '$lib/OCrypto';
-import { AppDataSource, AppUserSession, User } from '$lib/data-sources';
 import { error } from '@sveltejs/kit';
 import { genSaltSync, hashSync } from "bcrypt";
 import { serialize } from 'cookie';
 import type { RequestHandler } from './$types';
+import { prisma } from '$lib/server/prisma';
 
 
 export const POST: RequestHandler = async ({ request }) => {
     const body: { username: string, password: string } = await request.json()
 
     //get user by phone number
-    const usersRepos = AppDataSource.getRepository(User)
-    const existingUser = await usersRepos.findOneBy({ phoneNumber: body.username })
+    const existingUser = await prisma.user.findUnique({
+        where: {
+            phoneNumber: body.username
+        }
+    })
 
     if (existingUser) {
         throw error(400, new Error('user already exists'))
@@ -22,26 +25,25 @@ export const POST: RequestHandler = async ({ request }) => {
     const computedHash = hashSync(body.password, salt);
 
     //register the user with the given parameters
-    let user = new User()
-    user.phoneNumber = body.username
-    user.extraSecret = salt
-    user.passwordHash = computedHash
-    user.registrationDate = Date.now()
-
-    user = await usersRepos.save(user)
+    const user = await prisma.user.create({
+        data: {
+            phoneNumber: body.username,
+            extraSecret: salt,
+            passwordHash: computedHash,
+            registrationDate: new Date(),
+            firstName: "",
+            lastName: "",
+        }
+    })
 
     //create session
-    const sessionsRepos = AppDataSource.getRepository(AppUserSession)
-    let session = new AppUserSession()
-    session.user = user
-    session.hash = OCrypto.convertToBase64String(Buffer.from(user.phoneNumber))
+    const session = await prisma.appUserSession.create({
+        data: {
+            userId: user.id,
+            hash: OCrypto.convertToBase64String(Buffer.from(user.phoneNumber)),
+        }
+    })
 
-    session = await sessionsRepos.save(session);
-    
-    //link user & session
-    user.session = session;
-    await usersRepos.save(user);
-    
     //return headers with auth in
     return new Response("successful registration!", {
         status: 201,

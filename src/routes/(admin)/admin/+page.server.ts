@@ -1,19 +1,19 @@
-import { AppDataSource, CardRequest, PassAgent, PassCard, PassPoint, PassStation, UsageRecord, User } from '$lib/data-sources';
+import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
-export const load = (async ({parent}) => {
+export const load = (async ({ parent }) => {
 
-    const cardsCount = await AppDataSource.manager.count(PassCard); 
-    const usersCount = await AppDataSource.manager.count(User);
-    const agentsCount = await AppDataSource.manager.count(PassAgent);
-    const passesCount = await AppDataSource.manager.count(PassPoint);
-    const stationsCount = await AppDataSource.manager.count(PassStation);
-    const usagesCount = await AppDataSource.manager.count(UsageRecord);
-    const requestsCount = await AppDataSource.manager.count(CardRequest, {
+    const cardsCount = await prisma.passCard.count()
+    const usersCount = await prisma.user.count()
+    const agentsCount = await prisma.passAgent.count()
+    const passesCount = await prisma.passPoint.count()
+    const stationsCount = await prisma.passStation.count()
+    const usagesCount = await prisma.usageRecord.count()
+    const requestsCount = await prisma.cardRequest.count({
         where: {
-            requestStatus: "pending"
+            requestStatus: 'Pending'
         }
-    });
+    })
 
     const { user } = await parent();
     return {
@@ -22,7 +22,7 @@ export const load = (async ({parent}) => {
         usersCount,
         passesCount,
         stationsCount,
-        usagesCount, 
+        usagesCount,
         requestsCount,
         agentsCount
     }

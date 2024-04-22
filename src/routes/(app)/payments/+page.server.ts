@@ -1,16 +1,13 @@
 import type { PageServerLoad } from './$types';
-import { AppDataSource, User } from '$lib/data-sources';
+import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ locals }) => {
-    const full_user = await AppDataSource.manager.findOne(User, {
+    const full_user = await prisma.user.findFirst({
         where: {
-            phoneNumber: locals.user!.username
-        },
-        relations: {
-            userCard: true,
-            cardRequest: true,
+            phoneNumber: locals.user?.username
         }
-    })
+    });
+   
     return {
         user: structuredClone(full_user)
     };

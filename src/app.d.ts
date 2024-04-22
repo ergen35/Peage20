@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { AppUserInfos } from './entities/AppUserInfos';
+import { AppUserInfos } from './lib/models/AppUserInfos';
 
 
 declare global {

@@ -1,61 +1,71 @@
 import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import { prisma } from '$lib/server/prisma';
 
-import { AppDataSource, CardRequest, PassCard } from '$lib/data-sources';
 
 export const POST: RequestHandler = async ({ url, request }) => {
 
     const requestId = url.searchParams.get("requestId");
-    const { cardId } = await request.json(); 
+    const { cardId } = await request.json();
 
-    if(!requestId)
+    if (!requestId)
         throw error(400, "bad request, request id not provided")
-        
-    if(isNaN(Number(requestId)))
+
+    if (isNaN(Number(requestId)))
         throw error(400, "invalid request")
 
     //find card request
-    const cardRequest = await AppDataSource.manager.findOne(CardRequest, {
-        where: { 
-            id: Number(requestId) 
+    const cardRequest = await prisma.cardRequest.findFirst({
+        where: {
+            id: Number(requestId)
         },
-        relations: {
+        include: {
             requestMaker: true
-        }    
-    });
+        }
+    })
 
-    if(!cardRequest)
+    //not found
+    if (!cardRequest)
         throw error(404, 'card request not found')
 
     //find existing PassCard
-    const pc = await AppDataSource.manager.exists(PassCard, {
+    const pc = await prisma.passCard.findFirst({
         where: {
             cardID: cardId
         }
     });
 
-    if(pc) 
-        throw error(400, "exists")
+    if (pc) throw error(400, "exists")
 
-    cardRequest.requestStatus = 'accepted';
-    await AppDataSource.manager.save(cardRequest);
+    //update card request status
+    await prisma.cardRequest.update({
+        where: {
+            id: Number(requestId)
+        },
+        data: {
+            requestStatus: 'Accepted'
+        }
+    });
 
-    //then create a card for that user
-    let passCard = new PassCard();
-    passCard.cardID = cardId;
-    passCard.cardOwner = cardRequest.requestMaker;
-    passCard.creationDate = Date.now();
-    passCard.isActivated = true;
-    
-    passCard = await AppDataSource.manager.save(passCard);
+    //then create a card for that user    
+    const passCard = await prisma.passCard.create({
+        data: {
+            cardID: cardId,
+            cardOwnerId: cardRequest.requestMakerId,
+            creationDate: new Date(),
+            isActivated: true
+        }
+    });
 
     //assign card to user & activate
-    cardRequest.requestMaker.userCard = passCard;
-    cardRequest.requestMaker.accountActivated = true;
-    await AppDataSource.manager.save(cardRequest.requestMaker)
-
-    return new Response("card accepted",
-    {
-        status: 200
+    await prisma.user.update({
+        where: {
+            id: cardRequest.requestMakerId
+        },
+        data: {
+            accountActivated: true
+        }
     });
+
+    return new Response("card accepted", { status: 200 });
 };

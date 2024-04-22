@@ -1,16 +1,24 @@
 import type { PageServerLoad } from './$types';
-import { AppDataSource, User } from '$lib/data-sources';
 import { redirect } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma';
 
 export const load = (async ({ locals }) => {
-    
+
     const user = locals.user;
 
-    const user_data = await AppDataSource.manager.findOneBy(User, {
-        phoneNumber: user == null ? "" : user!.username,
-    });
+    const user_data = await prisma.user.findFirst({
+        where: {
+            phoneNumber: user == null ? "" : user!.username,
+        },
+        select: {
+            firstName: true,
+            lastName: true,
+            phoneNumber: true,
+            address: true,
+        }
+    })
 
-    if(user_data == null){
+    if (user_data == null) {
         throw redirect(302, '/')
     }
 
