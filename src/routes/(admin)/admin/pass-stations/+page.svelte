@@ -1,11 +1,12 @@
 <script lang="ts">
+    import { invalidate } from '$app/navigation';
     import type { PageData } from './$types';
     import { Button, Modal, Input, Card, Spinner } from 'flowbite-svelte';
     import * as Joi from 'joi'
-    // import { PassStation } from '$lib/data-sources';
 
     export let data: PageData;
 
+    let modal: Modal;
     let addStationModalOpened = false;
     let stationDataName =  '';
     let stationDataPrice = 0;
@@ -35,14 +36,11 @@
             body: JSON.stringify({ name: stationDataName, price: stationDataPrice })
         })
 
-        if(response.ok)
-        {
-            const stationData = await response.json();
-            data.stations.push({ id: stationData.id, price: stationData.price, name: stationData.name, passPoints: [] });
-            data.stations = data.stations;
+        if(response.ok){
+            invalidate("stations:list");
+            modal.$set({ open: false })
         }
-        else
-        {
+        else{
             alert("La station n'a pas pu être enregistrée")
         }
 
@@ -117,7 +115,7 @@
 </div>
 
 <!-- Modals -->
-<Modal bind:open={addStationModalOpened} autoclose={false} >
+<Modal bind:this={modal} bind:open={addStationModalOpened} autoclose={false} >
     <div>
         <span class="bs5-d-block bs5-mx-2 bs5-mt-4 bs5-mb-2 text-yellow-800" style="font-size: 18px;">
             Enregistrer une nouvelle Station de Passage

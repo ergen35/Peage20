@@ -13,7 +13,7 @@ export const POST: RequestHandler = async ({ request }) => {
     const station = await prisma.passStation.create({
         data: {
             name: name,
-            price: price
+            price: Number(price)
         }
     });
 
